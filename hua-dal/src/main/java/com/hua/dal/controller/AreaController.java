@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +23,10 @@ public class AreaController {
     private IBaseService baseService;
 
     @RequestMapping(value = "getlist")
-    public Map getList() throws Exception{
-        Map<String,Object> modelMap  = new HashMap<String,Object>(16);
-        List<Area> list = baseService.getAreaList();
-        modelMap.put("areaList",list);
+    public Map getList() throws Exception {
+        Map<String, Object> modelMap = new HashMap<String, Object>(16);
+        List<Area> list = (List<Area>) baseService.getList("com.hua.dal.mapper.area.getList", "");
+        modelMap.put("areaList", list);
         return modelMap;
     }
 }

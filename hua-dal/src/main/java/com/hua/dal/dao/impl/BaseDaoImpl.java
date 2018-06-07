@@ -5,22 +5,23 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * @author: hua
  * @create: 2018-05-28 15:18
  */
-@Mapper
+@Repository("baseDao")
 public class BaseDaoImpl implements IBaseDao {
 
-    @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
+    @Resource
+    SqlSessionTemplate sqlSessionTemplate;
 
     @Override
-    public int insert(String method, Object parameter)
-            throws Exception {
+    public int insert(String method, Object parameter) throws Exception {
         // TODO Auto-generated method stub
         return sqlSessionTemplate.insert(method, parameter);
     }
@@ -31,8 +32,7 @@ public class BaseDaoImpl implements IBaseDao {
     }
 
     @Override
-    public int delete(String method, Object parameter)
-            throws Exception {
+    public int delete(String method, Object parameter) throws Exception {
         // TODO Auto-generated method stub
         return sqlSessionTemplate.delete(method, parameter);
     }
@@ -43,21 +43,18 @@ public class BaseDaoImpl implements IBaseDao {
     }
 
     @Override
-    public List<?> getList(String method,
-                           Object parameter) throws Exception {
+    public List<?> getList(String method, Object parameter) throws Exception {
         // TODO Auto-generated method stub
         return sqlSessionTemplate.selectList(method, parameter);
     }
 
     @Override
-    public List<?> getList(String method,
-                           Object parameter, RowBounds rowBounds) throws Exception {
+    public List<?> getList(String method, Object parameter, RowBounds rowBounds) throws Exception {
         return sqlSessionTemplate.selectList(method, parameter, rowBounds);
     }
 
     @Override
-    public int update(String method, Object parameter)
-            throws Exception {
+    public int update(String method, Object parameter) throws Exception {
         // TODO Auto-generated method stub
         return sqlSessionTemplate.update(method, parameter);
     }
@@ -68,8 +65,7 @@ public class BaseDaoImpl implements IBaseDao {
     }
 
     @Override
-    public Object getObject(String method, Object parameter)
-            throws Exception {
+    public Object getObject(String method, Object parameter) throws Exception {
         // TODO Auto-generated method stub
         return sqlSessionTemplate.selectOne(method, parameter);
     }

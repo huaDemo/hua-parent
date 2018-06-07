@@ -8,5 +8,10 @@
     <artifactId>hua-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <modules>
+        <module>hua-dal</module>
+        <module>hua-cms</module>
+    </modules>
+
 
 </project>

@@ -6,20 +6,21 @@ import com.hua.dal.service.IBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * @author: hua
  * @create: 2018-05-28 21:34
  */
-@Service
-public class BaseServiceImpl implements IBaseService{
+@Service("baseService")
+public class BaseServiceImpl implements IBaseService {
 
-    @Autowired
-    private IBaseDao baseDao;
+    @Resource(name = "baseDao")
+    IBaseDao baseDao;
 
     @Override
-    public List<Area> getAreaList() throws Exception {
-        return (List<Area>) baseDao.getList("com.hua.dal.dao.IBaseDao.getList", "");
+    public List<?> getList(String method, Object parameter) throws Exception {
+        return baseDao.getList(method,parameter);
     }
 }
