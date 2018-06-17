@@ -11,9 +11,8 @@ import java.util.Date;
 public class Table {
 
     private String id;//表名(英文名主键)
-    private String tableName;//中文名
     private String tableSchema;//数据库名
-    private Date tableComment;//注释
+    private String tableComment;//注释
 
     public String getId() {
         return id;
@@ -21,14 +20,6 @@ public class Table {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
     }
 
     public String getTableSchema() {
@@ -39,11 +30,11 @@ public class Table {
         this.tableSchema = tableSchema;
     }
 
-    public Date getTableComment() {
+    public String getTableComment() {
         return tableComment;
     }
 
-    public void setTableComment(Date tableComment) {
+    public void setTableComment(String tableComment) {
         this.tableComment = tableComment;
     }
 }

@@ -131,11 +131,11 @@ public class HuaCmsApplicationTests {
         // 设定去哪里读取相应的ftl模板文件
         cfg.setClassForTemplateLoading(this.getClass(), "/templates");
         // 在模板文件目录中找到名称为name的文件
-        String className = "Prptmain";
+        String className = "Prpcmain";
         Template temp = cfg.getTemplate("model.ftl", "UTF-8");
         FileWriter fileWriter = new FileWriter(new File("f://" + className + ".java"));
 
-        List<Column> columnList = cmsService.test("PRPTMAIN");
+        List<Column> columnList = cmsService.test("PRPCMAIN");
         for (Column column : columnList) {
             if ("VARCHAR2".equals(column.getColumnType()) || "DATE".equals(column.getColumnType())) {
                 column.setColumnType("String");

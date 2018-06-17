@@ -8,21 +8,11 @@ package com.hua.huacms.entity;
  */
 public class Column {
 
-    private String id;//字段主键
     private String columnName;//字段名称
     private String columnType;//字段类型
     private String isNull;//是否为空
-    private Integer length;//字段长度
     private String remark;//字段注释
-    private String tableId;//表的主键
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private String tableId;//所属表名称
 
     public String getColumnName() {
         return columnName;
@@ -46,14 +36,6 @@ public class Column {
 
     public void setIsNull(String isNull) {
         this.isNull = isNull;
-    }
-
-    public Integer getLength() {
-        return length;
-    }
-
-    public void setLength(Integer length) {
-        this.length = length;
     }
 
     public String getRemark() {

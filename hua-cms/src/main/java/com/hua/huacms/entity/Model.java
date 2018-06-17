@@ -10,6 +10,7 @@ import java.util.List;
  * @create: 2018-06-05 22:06
  */
 public class Model {
+
     private String packageName;//包名
     private String moduleName;//模块名
     private String className;//类名
