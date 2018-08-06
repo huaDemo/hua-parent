@@ -1,7 +1,9 @@
 package com.hua.huacms.service.impl;
 
 import com.hua.huacms.entity.Column;
+import com.hua.huacms.entity.Model;
 import com.hua.huacms.entity.Table;
+import com.hua.huacms.service.CmsService;
 import com.hua.huacms.service.DBService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +11,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,6 +29,9 @@ public class DBServiceImplTest {
     @Autowired
     private DBService dbService;
 
+    @Autowired
+    private CmsService cmsService;
+
     @Test
     public void getTableList() throws Exception {
         List<Table> tableList = dbService.getTableList("demo", "mysql");
@@ -33,7 +39,22 @@ public class DBServiceImplTest {
 
     @Test
     public void getColumnList() throws Exception {
-        List<Column> columnList= dbService.getColumnList("tb_area","mysql");
+        List<Column> columnList = dbService.getColumnList("tb_area", "mysql");
+    }
+
+    @Test
+    public void cmsServiceTest() throws Exception {
+        String className = "Prptmain";//
+        className = className.toUpperCase();
+        //查询表字段
+        List<Column> columnList = cmsService.test(className);
+        Model model = new Model();
+        model.setAuthor("hua");
+        model.setClassName(className);
+        model.setModuleName("com.bocins.springcloud");
+        model.setPackageName("vo");
+        model.setColumnList(columnList);
+        cmsService.createModel(model, "oracle", "C:\\Users\\Administrator\\Desktop\\新建文件夹\\" + className + ".java");
     }
 
 }

@@ -56,12 +56,15 @@ public class DBServiceImpl implements DBService {
     @Override
     public List<Column> formatColumnList(String dbType, List<Column> columnList) throws Exception {
         for (Column column : columnList) {
+            //1.转换ColumnType
+            //oracle
             if (DBEnum.ORACLE.getDbType().equals(dbType)) {
-                //oracle
-                if ("VARCHAR2".equals(column.getColumnType()) || "DATE".equals(column.getColumnType())) {
+                if ("VARCHAR2".equals(column.getColumnType()) || "CHAR".equals(column.getColumnType())) {
                     column.setColumnType("String");
+                } else if ("DATE".equals(column.getColumnType())) {
+                    column.setColumnType("Date");
                 } else if ("NUMBER".equals(column.getColumnType())) {
-                    column.setColumnType("Double");
+                    column.setColumnType("BigDecimal");
                 }
             }
             //mysql
@@ -72,17 +75,23 @@ public class DBServiceImpl implements DBService {
                     column.setColumnType("Double");
                 }
             }
-            //ColumnName转换成驼峰
+            //2.ColumnName转换成驼峰
             if (column.getColumnName() != null && column.getColumnName().contains("_")) {
                 column.setColumnName(PubTools.strformatHump(column.getColumnName()));
             } else {
                 column.setColumnName(column.getColumnName().toLowerCase());
             }
-            //tableId转换成驼峰
+            //3.tableId转换成驼峰
             if (column.getTableId() != null && column.getTableId().contains("_")) {
                 column.setTableId(PubTools.strformatHump(column.getTableId()));
             } else {
                 column.setTableId(column.getTableId().toLowerCase());
+            }
+            //4.columnLength转换(排除number类型)
+            if (column.getColumnLength() != null && !"BigDecimal".equals(column.getColumnType()) && !"Date".equals(column.getColumnType())) {
+                column.setColumnLength(column.getColumnLength());
+            } else {
+                column.setColumnLength("");
             }
         }
         return columnList;

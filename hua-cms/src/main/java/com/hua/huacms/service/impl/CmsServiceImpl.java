@@ -55,10 +55,10 @@ public class CmsServiceImpl implements CmsService {
             // 设定去哪里读取相应的ftl模板文件
             cfg.setClassForTemplateLoading(this.getClass(), "/templates");
             // 在模板文件目录中找到名称为model.ftl的文件
-            Template temp = cfg.getTemplate("model.ftl", "UTF-8");
+            Template temp = cfg.getTemplate("index.ftl", "UTF-8");
             //创建Model实体
-            model.setClassName(tableId);
-            model.setColumnList(columnList);
+            /*model.setClassName(tableId);
+            model.setColumnList(columnList);*/
             model.setCreateTime(new Date());
             FileWriter fileWriter = new FileWriter(new File(url));
             Map<String, Object> map = new HashMap<String, Object>(16);
@@ -68,6 +68,7 @@ public class CmsServiceImpl implements CmsService {
             fileWriter.close();
             return 0;
         } catch (Exception e) {
+            e.printStackTrace();
             return -1;
         }
     }

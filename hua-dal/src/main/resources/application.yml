@@ -11,6 +11,7 @@ mybatis:
   #开启驼峰转换
   configuration:
     mapUnderscoreToCamelCase: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 ---
 

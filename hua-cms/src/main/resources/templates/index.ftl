@@ -1,28 +1,37 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Hello World!</title>
-</head>
-<body>
-    <p>
-        welcome ${name} to freemarker!
-    </p>
+package ${Model.moduleName}.${Model.packageName};
 
-    <p>性别：
-    <#if sex==0>
-        女
-    <#elseif sex==1>
-        男
-    <#else>
-        保密
+import java.util.Date;
+import java.util.List;
+
+/**
+*
+* @author: ${Model.author}
+*/
+public class ${Model.className ?cap_first} {
+
+    <#--成员变量-->
+    <#list Model.columnList as item>
+    <#if item.remark?? && item.remark!="">
+    <#if item.columnType == "Date">
+    @Temporal(TemporalType.DATE)
     </#if>
-    </p>
+    @ApiModelProperty(value = "${item.remark}"
+        <#if item.columnLength!="">
+        ,allowableValues = "range[0,${item.columnLength}]"
+        </#if>
+        <#if item.isNull=="N">
+        , required = true
+        </#if>
+    )
+    <#if item.columnLength!="">
+    @Size(min = 0,max = ${item.columnLength})
+    </#if>
+    <#if item.isNull=="N">
+    @NotEmpty
+    </#if>
+    </#if>
+    private ${item.columnType} ${item.columnName};//${item.remark!item.columnName}
+    </#list>
 
-    <h4>我的好友：</h4>
-<#list friends as item>
-    姓名：${item.name} , 年龄${item.age}
-    <br>
-</#list>
-</body>
-</html>
+
+}

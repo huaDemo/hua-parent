@@ -9,7 +9,7 @@ import java.util.List;
  * @author: hua
  * @create: 2018-06-05 22:06
  */
-public class Model {
+public class  Model {
 
     private String packageName;//包名
     private String moduleName;//模块名

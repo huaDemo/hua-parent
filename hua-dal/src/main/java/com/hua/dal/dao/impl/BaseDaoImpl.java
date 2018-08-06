@@ -1,11 +1,14 @@
 package com.hua.dal.dao.impl;
 
 import com.hua.dal.dao.IBaseDao;
+import com.hua.dal.entity.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,9 +29,19 @@ public class BaseDaoImpl implements IBaseDao {
         return sqlSessionTemplate.insert(method, parameter);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public int insertList(String method, List objs) throws Exception {
-        return sqlSessionTemplate.insert(method, objs);
+        int result = 0;
+        if (objs != null && objs.size() > 0) {
+            for (Object o : objs) {
+                int i = this.insert(method, o);
+                if (i == 1) {
+                    result++;
+                }
+            }
+        }
+        return result;
     }
 
     @Override
@@ -37,9 +50,19 @@ public class BaseDaoImpl implements IBaseDao {
         return sqlSessionTemplate.delete(method, parameter);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public int deleteList(String method, List objs) throws Exception {
-        return sqlSessionTemplate.delete(method, objs);
+        int result = 0;
+        if (objs != null && objs.size() > 0) {
+            for (Object o : objs) {
+                int i = this.delete(method, o);
+                if (i == 1) {
+                    result++;
+                }
+            }
+        }
+        return result;
     }
 
     @Override
@@ -49,8 +72,20 @@ public class BaseDaoImpl implements IBaseDao {
     }
 
     @Override
-    public List<?> getList(String method, Object parameter, RowBounds rowBounds) throws Exception {
-        return sqlSessionTemplate.selectList(method, parameter, rowBounds);
+    public Page getList(String method, Object parameter, Page page) throws Exception {
+        //截取映射namespace
+        String str = method.substring(0, method.lastIndexOf(".") + 1);
+        //查询总记录数
+        Integer totalRecord = (Integer) this.getObject(str + "countList", parameter);
+        if (totalRecord != null && totalRecord != 0) {
+            RowBounds rowBounds = new RowBounds(page.getCurrentPage(), page.getPageSize());
+            List<Object> objects = sqlSessionTemplate.selectList(method, parameter, rowBounds);
+            page.setTotalRecord(totalRecord);
+            page.setTotalPage((totalRecord - 1) / page.getPageSize() + 1);
+            page.setData(objects);
+            return page;
+        }
+        return null;
     }
 
     @Override
@@ -59,9 +94,19 @@ public class BaseDaoImpl implements IBaseDao {
         return sqlSessionTemplate.update(method, parameter);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @Override
     public int updateList(String method, List objs) throws Exception {
-        return sqlSessionTemplate.update(method, objs);
+        int result = 0;
+        if (objs != null && objs.size() > 0) {
+            for (Object o : objs) {
+                int i = this.update(method, o);
+                if (i == 1) {
+                    result++;
+                }
+            }
+        }
+        return result;
     }
 
     @Override
@@ -69,4 +114,5 @@ public class BaseDaoImpl implements IBaseDao {
         // TODO Auto-generated method stub
         return sqlSessionTemplate.selectOne(method, parameter);
     }
+
 }

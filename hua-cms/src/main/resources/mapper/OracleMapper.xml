@@ -9,8 +9,11 @@
         P.COLUMN_NAME AS "columnName"
         ,P.TABLE_NAME AS "tableId"
         ,P.DATA_TYPE AS "columnType"
+        ,P.DATA_LENGTH AS "columnLength"
+        ,P.NULLABLE AS "isNull"
         ,x1.COMMENTS AS "remark"
     </sql>
+
     <!--关联查询字段-->
     <sql id="joinSql">
         left join user_col_comments x1 on P.COLUMN_NAME = x1.column_name and x1.table_name = p.TABLE_NAME

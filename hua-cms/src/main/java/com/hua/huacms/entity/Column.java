@@ -10,6 +10,7 @@ public class Column {
 
     private String columnName;//字段名称
     private String columnType;//字段类型
+    private String columnLength;//字段长度
     private String isNull;//是否为空
     private String remark;//字段注释
     private String tableId;//所属表名称
@@ -52,5 +53,13 @@ public class Column {
 
     public void setTableId(String tableId) {
         this.tableId = tableId;
+    }
+
+    public String getColumnLength() {
+        return columnLength;
+    }
+
+    public void setColumnLength(String columnLength) {
+        this.columnLength = columnLength;
     }
 }

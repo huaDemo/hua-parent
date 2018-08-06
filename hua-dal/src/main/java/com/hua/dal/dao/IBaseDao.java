@@ -1,6 +1,7 @@
 package com.hua.dal.dao;
 
 import com.hua.dal.constant.EDBType;
+import com.hua.dal.entity.Page;
 import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
@@ -69,7 +70,7 @@ public interface IBaseDao {
      * @return
      * @throws Exception
      */
-    List<?> getList(String method, Object parameter, RowBounds rowBounds) throws Exception;
+    Page getList(String method, Object parameter, Page page) throws Exception;
 
     /**
      * 修改

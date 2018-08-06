@@ -29,9 +29,15 @@
     <update id="updateArea" parameterType="Area">
         update tb_area
         <set>
-            <if test="areaName != null">area_name=#{areaName},</if>
-            <if test="priority != null">priority=#{priority},</if>
-            <if test="lastEditTime != null">last_edit_time=#{lastEditTime}</if>
+            <if test="areaName != null">
+                area_name=#{areaName},
+            </if>
+            <if test="priority != null">
+                priority=#{priority},
+            </if>
+            <if test="lastEditTime != null">
+                last_edit_time=#{lastEditTime},
+            </if>
         </set>
         where area_id=#{areaId}
     </update>
@@ -42,4 +48,15 @@
         area_id =
         #{areaId}
     </delete>
+    <select id="countList"  parameterType="Area" resultType="Integer">
+        SELECT count(*)
+        FROM tb_area
+        <where>
+            <if test="areaId!=null and areaId!=''">
+                area_id=#{areaId}
+            </if>
+        </where>
+        ORDER BY priority
+        DESC
+    </select>
 </mapper>
