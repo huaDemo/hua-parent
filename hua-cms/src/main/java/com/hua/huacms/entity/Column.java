@@ -1,5 +1,7 @@
 package com.hua.huacms.entity;
 
+import com.hua.huacms.util.PubTools;
+
 /**
  * 数据表字段实体类
  *
@@ -14,6 +16,11 @@ public class Column {
     private String isNull;//是否为空
     private String remark;//字段注释
     private String tableId;//所属表名称
+    private String formateColumnName;//驼峰转换后的字段名称
+
+    public Column() {
+
+    }
 
     public String getColumnName() {
         return columnName;
@@ -21,6 +28,14 @@ public class Column {
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
+        //驼峰转换给formateColumnName赋值
+        if (this.formateColumnName == null) {
+            if (this.columnName != null && this.columnName.contains("_")) {
+                this.formateColumnName = PubTools.strformatHump(this.columnName);
+            } else {
+                this.formateColumnName = this.columnName.toLowerCase();
+            }
+        }
     }
 
     public String getColumnType() {
@@ -61,5 +76,13 @@ public class Column {
 
     public void setColumnLength(String columnLength) {
         this.columnLength = columnLength;
+    }
+
+    public String getFormateColumnName() {
+        return formateColumnName;
+    }
+
+    public void setFormateColumnName(String formateColumnName) {
+        this.formateColumnName = formateColumnName;
     }
 }

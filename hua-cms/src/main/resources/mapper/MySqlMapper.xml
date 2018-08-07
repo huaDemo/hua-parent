@@ -33,6 +33,15 @@
         </where>
     </select>
 
+    <!-- 查询表主键 -->
+    <select id="getTableId" parameterType="String" resultType="String">
+        select
+          column_name
+        from INFORMATION_SCHEMA.`KEY_COLUMN_USAGE` P
+        where P.table_name = #{tableName}
+          AND constraint_name='PRIMARY'
+    </select>
+
     <!-- 查询字段信息 -->
     <select id="getColumnList" parameterType="Column" resultType="Column">
         select

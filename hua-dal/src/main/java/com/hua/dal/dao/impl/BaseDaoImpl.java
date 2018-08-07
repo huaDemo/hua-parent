@@ -73,17 +73,19 @@ public class BaseDaoImpl implements IBaseDao {
 
     @Override
     public Page getList(String method, Object parameter, Page page) throws Exception {
-        //截取映射namespace
-        String str = method.substring(0, method.lastIndexOf(".") + 1);
-        //查询总记录数
-        Integer totalRecord = (Integer) this.getObject(str + "countList", parameter);
-        if (totalRecord != null && totalRecord != 0) {
-            RowBounds rowBounds = new RowBounds(page.getCurrentPage(), page.getPageSize());
-            List<Object> objects = sqlSessionTemplate.selectList(method, parameter, rowBounds);
-            page.setTotalRecord(totalRecord);
-            page.setTotalPage((totalRecord - 1) / page.getPageSize() + 1);
-            page.setData(objects);
-            return page;
+        if (method != null && page != null) {
+            //截取映射namespace
+            String str = method.substring(0, method.lastIndexOf(".") + 1);
+            //查询总记录数
+            Integer totalRecord = (Integer) this.getObject(str + "countList", parameter);
+            if (totalRecord != null && totalRecord != 0) {
+                RowBounds rowBounds = new RowBounds(page.getCurrentPage(), page.getPageSize());
+                List<Object> objects = sqlSessionTemplate.selectList(method, parameter, rowBounds);
+                page.setTotalRecord(totalRecord);
+                page.setTotalPage((totalRecord - 1) / page.getPageSize() + 1);
+                page.setData(objects);
+                return page;
+            }
         }
         return null;
     }

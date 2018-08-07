@@ -23,6 +23,18 @@ public interface CmsService {
      * @return
      * @throws Exception
      */
-    int createModel(Model model, String dbType, String url) throws Exception;
+    int createModel(Model model, String dbType, String url, String ftl) throws Exception;
+
+    /**
+     * 创建模板文件服务
+     *
+     * @param t
+     * @param url
+     * @param ftl
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> int createFtl(T t, String url, String ftl) throws Exception;
 
 }

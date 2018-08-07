@@ -30,7 +30,7 @@ public class ${Model.className ?cap_first} {
     @NotEmpty
     </#if>
     </#if>
-    private ${item.columnType} ${item.columnName};//${item.remark!item.columnName}
+    private ${item.columnType} ${item.formateColumnName};//${item.remark!item.formateColumnName}
     </#list>
 
 

@@ -31,6 +31,20 @@ public class PubTools {
     }
 
     /**
+     * 首字母转大写
+     *
+     * @param s
+     * @return
+     */
+    public static String toUpperCaseFirstOne(String s) {
+        if (Character.isUpperCase(s.charAt(0))) {
+            return s;
+        } else {
+            return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+        }
+    }
+
+    /**
      * 以指定格式获得当前日期
      *
      * @param format

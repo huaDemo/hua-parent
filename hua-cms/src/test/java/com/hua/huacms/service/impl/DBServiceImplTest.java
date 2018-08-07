@@ -44,17 +44,14 @@ public class DBServiceImplTest {
 
     @Test
     public void cmsServiceTest() throws Exception {
-        String className = "Prptmain";//
+        String className = "tb_area";//
         className = className.toUpperCase();
-        //查询表字段
-        List<Column> columnList = cmsService.test(className);
         Model model = new Model();
         model.setAuthor("hua");
-        model.setClassName(className);
+        model.setTableName(className);
         model.setModuleName("com.bocins.springcloud");
         model.setPackageName("vo");
-        model.setColumnList(columnList);
-        cmsService.createModel(model, "oracle", "C:\\Users\\Administrator\\Desktop\\新建文件夹\\" + className + ".java");
+        cmsService.createModel(model, "mysql", "C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)\\PRPTMAIN.java", "mapper.ftl");
     }
 
 }

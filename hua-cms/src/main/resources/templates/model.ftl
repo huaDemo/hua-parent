@@ -7,6 +7,7 @@ import java.util.List;
 * ${Model.remark}
 *
 * @author: ${Model.author}
+* @create: ${Model.createTime}
 */
 public class ${Model.className ?cap_first} {
 

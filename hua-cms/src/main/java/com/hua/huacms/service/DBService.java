@@ -33,6 +33,16 @@ public interface DBService {
     List<Column> getColumnList(String tableId, String dbType) throws Exception;
 
     /**
+     * 查询某张表的主键
+     *
+     * @param tableName
+     * @param dbType
+     * @return
+     * @throws Exception
+     */
+    String getTableId(String tableName, String dbType) throws Exception;
+
+    /**
      * 字段名转换为实体类需要类型服务
      *
      * @param tableId

@@ -43,11 +43,25 @@ public class DBServiceImpl implements DBService {
     public List<Column> getColumnList(String tableId, String dbType) throws Exception {
         if (StringUtils.isNotBlank(dbType)) {
             if (DBEnum.ORACLE.getDbType().equals(dbType)) {
-
+                Column column = new Column();
+                column.setTableId(tableId);
+                return (List<Column>) baseDao.getList(MapperEnum.ORACLE.getUrl() + ".getColumnList", column);
             } else if (DBEnum.MYSQL.getDbType().equals(dbType)) {
                 Column column = new Column();
                 column.setTableId(tableId);
                 return (List<Column>) baseDao.getList(MapperEnum.MYSQL.getUrl() + ".getColumnList", column);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String getTableId(String tableName, String dbType) throws Exception {
+        if (StringUtils.isNotBlank(dbType)) {
+            if (DBEnum.ORACLE.getDbType().equals(dbType)) {
+                return (String) baseDao.getObject(MapperEnum.ORACLE.getUrl() + ".getTableId", tableName);
+            } else if (DBEnum.MYSQL.getDbType().equals(dbType)) {
+                return (String) baseDao.getObject(MapperEnum.MYSQL.getUrl() + ".getTableId", tableName);
             }
         }
         return null;
@@ -75,18 +89,18 @@ public class DBServiceImpl implements DBService {
                     column.setColumnType("Double");
                 }
             }
-            //2.ColumnName转换成驼峰
-            if (column.getColumnName() != null && column.getColumnName().contains("_")) {
-                column.setColumnName(PubTools.strformatHump(column.getColumnName()));
+            //2.ColumnName转换成驼峰给formatColumnName赋值
+           /* if (column.getColumnName() != null && column.getColumnName().contains("_")) {
+                column.setFormateColumnName(PubTools.strformatHump(column.getColumnName()));
             } else {
-                column.setColumnName(column.getColumnName().toLowerCase());
-            }
+                column.setFormateColumnName(column.getColumnName().toLowerCase());
+            }*/
             //3.tableId转换成驼峰
-            if (column.getTableId() != null && column.getTableId().contains("_")) {
+            /*if (column.getTableId() != null && column.getTableId().contains("_")) {
                 column.setTableId(PubTools.strformatHump(column.getTableId()));
             } else {
                 column.setTableId(column.getTableId().toLowerCase());
-            }
+            }*/
             //4.columnLength转换(排除number类型)
             if (column.getColumnLength() != null && !"BigDecimal".equals(column.getColumnType()) && !"Date".equals(column.getColumnType())) {
                 column.setColumnLength(column.getColumnLength());

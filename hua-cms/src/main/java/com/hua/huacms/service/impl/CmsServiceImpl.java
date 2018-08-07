@@ -42,34 +42,58 @@ public class CmsServiceImpl implements CmsService {
     }
 
     @Override
-    public int createModel(Model model, String dbType, String url) throws Exception {
+    public int createModel(Model model, String dbType, String url, String ftl) throws Exception {
         try {
-            //转换字段
-            model.setColumnList(dbService.formatColumnList(dbType, model.getColumnList()));
-            //获取tableId
-            String tableId = model.getColumnList().get(0).getTableId();
-            //查询某张表中所有字段信息
-            List<Column> columnList = dbService.getColumnList(tableId, dbType);
-            // 通过FreeMarker的Configuration读取相应的ftl
+            if (model != null) {
+                //获取tableName
+                String tableName = model.getTableName();
+                if (model.getTableId() == null) {
+                    //查询主键
+                    String tableId = dbService.getTableId(tableName, dbType);
+                    model.setTableId(tableId);
+                }
+                if (model.getColumnList() == null) {
+                    //查询某张表中所有字段信息
+                    List<Column> columnList = dbService.getColumnList(tableName, dbType);
+                    model.setColumnList(columnList);
+                }
+                //转换字段
+                model.setColumnList(dbService.formatColumnList(dbType, model.getColumnList()));
+                //创建时间
+                if (model.getCreateTime() == null) {
+                    model.setCreateTime(new Date());
+                }
+                //创建模板文件
+                this.createFtl(model, url, ftl);
+                if (this.createFtl(model, url, ftl) == 1) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+            return -1;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public <T> int createFtl(T t, String url, String ftl) throws Exception {
+        try {
             Configuration cfg = new Configuration();
             // 设定去哪里读取相应的ftl模板文件
             cfg.setClassForTemplateLoading(this.getClass(), "/templates");
             // 在模板文件目录中找到名称为model.ftl的文件
-            Template temp = cfg.getTemplate("index.ftl", "UTF-8");
-            //创建Model实体
-            /*model.setClassName(tableId);
-            model.setColumnList(columnList);*/
-            model.setCreateTime(new Date());
+            Template temp = cfg.getTemplate(ftl, "UTF-8");
             FileWriter fileWriter = new FileWriter(new File(url));
             Map<String, Object> map = new HashMap<String, Object>(16);
-            map.put("Model", model);
+            map.put("Model", t);
             temp.process(map, fileWriter);
             fileWriter.flush();
             fileWriter.close();
             return 0;
         } catch (Exception e) {
-            e.printStackTrace();
-            return -1;
+            throw e;
         }
     }
 

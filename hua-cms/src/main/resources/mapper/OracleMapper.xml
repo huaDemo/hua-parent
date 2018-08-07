@@ -20,7 +20,7 @@
     </sql>
 
     <!-- 查询 -->
-    <select id="getColumnListByTableName" parameterType="Column" resultType="Column">
+    <select id="getColumnList" parameterType="Column" resultType="Column">
         select
         <include refid="searchCol"></include>
         from user_tab_columns P
