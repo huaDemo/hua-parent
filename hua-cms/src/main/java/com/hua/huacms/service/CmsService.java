@@ -1,10 +1,6 @@
 package com.hua.huacms.service;
 
-import com.hua.huacms.entity.Column;
 import com.hua.huacms.entity.Model;
-import com.hua.huacms.entity.Table;
-
-import java.util.List;
 
 /**
  * @author: hua
@@ -12,18 +8,17 @@ import java.util.List;
  */
 public interface CmsService {
 
-    List<Column> test(String tableName) throws Exception;
-
     /**
      * 智能代码生成实体类服务
      *
      * @param model
      * @param dbType
      * @param url
-     * @return
+     * @param ftl
+     * @return 1成功 0失败
      * @throws Exception
      */
-    int createModel(Model model, String dbType, String url, String ftl) throws Exception;
+    void createModel(Model model, String dbType, String url, String ftl) throws Exception;
 
     /**
      * 创建模板文件服务
@@ -35,6 +30,6 @@ public interface CmsService {
      * @return
      * @throws Exception
      */
-    <T> int createFtl(T t, String url, String ftl) throws Exception;
+    <T> void createFtl(T t, String url, String ftl, String suffix) throws Exception;
 
 }

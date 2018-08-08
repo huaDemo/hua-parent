@@ -56,7 +56,7 @@ public class HomeController {
     }
 
 
-    @RequestMapping("/test02")
+    /*@RequestMapping("/test02")
     public void test02() throws Exception {
         // 通过FreeMarker的Configuration读取相应的ftl
         Configuration cfg = new Configuration();
@@ -80,5 +80,5 @@ public class HomeController {
         fileWriter.flush();
         fileWriter.close();
 
-    }
+    }*/
 }

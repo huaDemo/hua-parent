@@ -83,10 +83,12 @@ public class DBServiceImpl implements DBService {
             }
             //mysql
             else if (DBEnum.MYSQL.getDbType().equals(dbType)) {
-                if ("VARCHAR".equals(column.getColumnType()) || "DATE".equals(column.getColumnType())) {
+                if ("varchar".equals(column.getColumnType())) {
                     column.setColumnType("String");
+                } else if ("datetime".equals(column.getColumnType())) {
+                    column.setColumnType("Date");
                 } else if ("int".equals(column.getColumnType())) {
-                    column.setColumnType("Double");
+                    column.setColumnType("int");
                 }
             }
             //2.ColumnName转换成驼峰给formatColumnName赋值

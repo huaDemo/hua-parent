@@ -3,60 +3,130 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hua.dal.mapper.area">
-    <select id="getList" resultType="Area">
-        SELECT area_id, area_name,
-        priority, create_time, last_edit_time
-        FROM tb_area
-        ORDER BY priority
-        DESC
+    <!--查询字段信息-->
+    <sql id="searchCol">
+        P.area_id AS "areaId",
+        P.area_name AS "areaName",
+        P.priority AS "priority",
+        P.create_time AS "createTime",
+        P.last_edit_time AS "lastEditTime"
+    </sql>
+    <!--关联查询相关sql-->
+    <sql id="joinSql">
+    </sql>
+    <!--查询单条-->
+    <select id="getOne" parameterType="String" resultType="Area">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM TB_AREA P
+        <include refid="joinSql"></include>
+        WHERE area_id = #{Area}
     </select>
-    <select id="queryAreaById" resultType="Area">
-        SELECT area_id, area_name,
-        priority, create_time, last_edit_time
-        FROM tb_area
-        WHERE
-        area_id=#{areaId}
-    </select>
-    <insert id="insertArea" useGeneratedKeys="true" keyProperty="areaId"
-            keyColumn="area_id" parameterType="Area">
-        INSERT INTO
-        tb_area(area_name,priority,
-        create_time,last_edit_time)
-        VALUES
-        (#{areaName},#{priority},
-        #{createTime},#{lastEditTime})
-    </insert>
-    <update id="updateArea" parameterType="Area">
-        update tb_area
-        <set>
-            <if test="areaName != null">
-                area_name=#{areaName},
-            </if>
-            <if test="priority != null">
-                priority=#{priority},
-            </if>
-            <if test="lastEditTime != null">
-                last_edit_time=#{lastEditTime},
-            </if>
-        </set>
-        where area_id=#{areaId}
-    </update>
-    <delete id="deleteArea">
-        DELETE FROM
-        tb_area
-        WHERE
-        area_id =
-        #{areaId}
-    </delete>
-    <select id="countList"  parameterType="Area" resultType="Integer">
-        SELECT count(*)
-        FROM tb_area
+    <!--查询多条-->
+    <select id="getList" parameterType="Area" resultType="Area">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM TB_AREA P
+        <include refid="joinSql"></include>
         <where>
-            <if test="areaId!=null and areaId!=''">
-                area_id=#{areaId}
+            <if test="areaId != null and areaId != ''">
+                AND P.area_id = #{areaId}
+            </if>
+            <if test="areaName != null and areaName != ''">
+                AND P.area_name = #{areaName}
+            </if>
+            <if test="priority != null and priority != ''">
+                AND P.priority = #{priority}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND P.create_time = #{createTime}
+            </if>
+            <if test="lastEditTime != null and lastEditTime != ''">
+                AND P.last_edit_time = #{lastEditTime}
             </if>
         </where>
-        ORDER BY priority
-        DESC
     </select>
+    <!--统计查询-->
+    <select id="countList" parameterType="Area" resultType="Integer">
+        SELECT count(*)
+        FROM TB_AREA P
+        <include refid="joinSql"></include>
+        <where>
+            <if test="areaId != null and areaId != ''">
+                AND P.area_id = #{areaId},
+            </if>
+            <if test="areaName != null and areaName != ''">
+                AND P.area_name = #{areaName},
+            </if>
+            <if test="priority != null and priority != ''">
+                AND P.priority = #{priority},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND P.create_time = #{createTime},
+            </if>
+            <if test="lastEditTime != null and lastEditTime != ''">
+                AND P.last_edit_time = #{lastEditTime},
+            </if>
+        </where>
+    </select>
+    <!--新增-->
+    <insert id="insert" parameterType="Area">
+        INSERT INTO TB_AREA
+        (
+        area_id,
+        area_name,
+        priority,
+        create_time,
+        last_edit_time"
+        )
+        VALUES
+        (
+        #{areaId},
+        #{areaName},
+        #{priority},
+        #{createTime},
+        #{lastEditTime}
+        )
+    </insert>
+    <!--修改-->
+    <update id="update" parameterType="Area">
+        update TB_AREA
+        <set>
+            <if test="areaName != null and areaName != ''">
+                AND area_name = #{areaName},
+            </if>
+            <if test="priority != null and priority != ''">
+                AND priority = #{priority},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND create_time = #{createTime},
+            </if>
+            <if test="lastEditTime != null and lastEditTime != ''">
+                AND last_edit_time = #{lastEditTime},
+            </if>
+        </set>
+        WHERE area_id = #{Area}
+    </update>
+    <!--删除-->
+    <delete id="delete" parameterType="Area">
+        DELETE FROM
+        TB_AREA
+        <where>
+            <if test="areaId != null and areaId != ''">
+                AND P.area_id = #{areaId},
+            </if>
+            <if test="areaName != null and areaName != ''">
+                AND P.area_name = #{areaName},
+            </if>
+            <if test="priority != null and priority != ''">
+                AND P.priority = #{priority},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND P.create_time = #{createTime},
+            </if>
+            <if test="lastEditTime != null and lastEditTime != ''">
+                AND P.last_edit_time = #{lastEditTime},
+            </if>
+        </where>
+    </delete>
 </mapper>

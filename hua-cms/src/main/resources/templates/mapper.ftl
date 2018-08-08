@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${Model.moduleName}.${Model.packageName}.mapper.${Model.className}">
+<mapper namespace="${Model.moduleName}.${Model.packageName}.mapper.${Model.className ?uncap_first}">
     <!--查询字段信息-->
     <sql id="searchCol">
     <#list Model.columnList as item>
@@ -16,7 +16,15 @@
     <!--关联查询相关sql-->
     <sql id="joinSql">
     </sql>
-    <!--查询-->
+    <!--查询单条-->
+    <select id="getOne" parameterType="String" resultType="${Model.className ?cap_first}">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM ${Model.tableName} P
+        <include refid="joinSql"></include>
+        WHERE ${Model.tableId!id} = ${"#"}{${Model.className!id}}
+    </select>
+    <!--查询多条-->
     <select id="getList" parameterType="${Model.className ?cap_first}" resultType="${Model.className ?cap_first}">
         SELECT
         <include refid="searchCol"></include>
@@ -25,7 +33,7 @@
         <where>
         <#list Model.columnList as item>
             <if test="${item.formateColumnName} != null and ${item.formateColumnName} != ''">
-                AND P.${item.columnName} = ${"#"}{${item.formateColumnName}},
+                AND P.${item.columnName} = ${"#"}{${item.formateColumnName}}
             </if>
         </#list>
         </where>
@@ -38,7 +46,7 @@
         <where>
         <#list Model.columnList as item>
             <if test="${item.formateColumnName} != null and ${item.formateColumnName} != ''">
-                AND P.${item.columnName} = ${"#"}{${item.formateColumnName}},
+                AND P.${item.columnName} = ${"#"}{${item.formateColumnName}}
             </if>
         </#list>
         </where>
@@ -73,7 +81,7 @@
         <#list Model.columnList as item>
             <#if  Model.tableId != item.columnName>
                 <if test="${item.formateColumnName} != null and ${item.formateColumnName} != ''">
-                    AND ${item.columnName} = ${"#"}{${item.formateColumnName}},
+                    AND ${item.columnName} = ${"#"}{${item.formateColumnName}}
                 </if>
             </#if>
         </#list>
@@ -81,9 +89,15 @@
         WHERE ${Model.tableId!id} = ${"#"}{${Model.className!id}}
     </update>
     <!--删除-->
-    <delete id="delete">
+    <delete id="delete" parameterType="${Model.className ?cap_first}">
         DELETE FROM
         ${Model.tableName}
-        WHERE ${Model.tableId!id} = ${"#"}{${Model.className!id}}
+        <where>
+        <#list Model.columnList as item>
+            <if test="${item.formateColumnName} != null and ${item.formateColumnName} != ''">
+                AND P.${item.columnName} = ${"#"}{${item.formateColumnName}}
+            </if>
+        </#list>
+        </where>
     </delete>
 </mapper>

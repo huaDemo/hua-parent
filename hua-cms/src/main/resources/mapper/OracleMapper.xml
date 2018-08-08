@@ -19,7 +19,7 @@
         left join user_col_comments x1 on P.COLUMN_NAME = x1.column_name and x1.table_name = p.TABLE_NAME
     </sql>
 
-    <!-- 查询 -->
+    <!-- 查询-->
     <select id="getColumnList" parameterType="Column" resultType="Column">
         select
         <include refid="searchCol"></include>
@@ -30,6 +30,18 @@
                 and P.TABLE_NAME = #{tableId}
             </if>
         </where>
+    </select>
+
+    <!--查询主键-->
+    <select id="getTableId" parameterType="String" resultType="String">
+        select column_name
+        from user_cons_columns
+        where table_name = #{tableName}
+        and constraint_name in
+        (select constraint_name
+          from user_constraints
+          where table_name = #{tableName}
+            and constraint_type = 'P')
     </select>
 
 </mapper>

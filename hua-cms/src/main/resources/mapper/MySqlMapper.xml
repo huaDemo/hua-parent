@@ -16,6 +16,7 @@
         ,P.IS_NULLABLE AS "isNull"
         ,P.COLUMN_COMMENT AS "remark"
         ,P.TABLE_NAME AS "tableId"
+        ,P.CHARACTER_MAXIMUM_LENGTH AS "columnLength"
     </sql>
     <!--关联查询字段-->
     <sql id="joinSql">

@@ -45,13 +45,12 @@ public class DBServiceImplTest {
     @Test
     public void cmsServiceTest() throws Exception {
         String className = "tb_area";//
-        className = className.toUpperCase();
         Model model = new Model();
         model.setAuthor("hua");
         model.setTableName(className);
         model.setModuleName("com.bocins.springcloud");
         model.setPackageName("vo");
-        cmsService.createModel(model, "mysql", "C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)\\PRPTMAIN.java", "mapper.ftl");
+        cmsService.createModel(model, "mysql", "", "");
     }
 
 }

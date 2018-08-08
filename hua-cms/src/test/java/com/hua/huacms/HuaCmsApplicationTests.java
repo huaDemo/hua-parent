@@ -124,54 +124,5 @@ public class HuaCmsApplicationTests {
     @Autowired
     private CmsService cmsService;
 
-    @Test
-    public void test02() throws Exception {
-        // 通过FreeMarker的Configuration读取相应的ftl
-        Configuration cfg = new Configuration();
-        // 设定去哪里读取相应的ftl模板文件
-        cfg.setClassForTemplateLoading(this.getClass(), "/templates");
-        // 在模板文件目录中找到名称为name的文件
-        String className = "Prpcmain";
-        Template temp = cfg.getTemplate("model.ftl", "UTF-8");
-        FileWriter fileWriter = new FileWriter(new File("f://" + className + ".java"));
-
-        List<Column> columnList = cmsService.test("PRPCMAIN");
-        for (Column column : columnList) {
-            if ("VARCHAR2".equals(column.getColumnType()) || "DATE".equals(column.getColumnType())) {
-                column.setColumnType("String");
-            } else if ("NUMBER".equals(column.getColumnType())) {
-                column.setColumnType("Double");
-            }
-            if (column.getColumnName() != null && column.getColumnName().contains("_")) {
-                String[] strs = column.getColumnName().split("_");
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < strs.length; i++) {
-                    if (i == 0) {
-                        //小写
-                        sb.append(strs[i].toLowerCase());
-                    } else {
-                        //从第二个起的单词首字母大写
-                        sb.append(strs[i].substring(0, 1).toUpperCase()).append(strs[i].substring(1).toLowerCase());
-                    }
-                }
-                column.setColumnName(sb.toString());
-            } else {
-                column.setColumnName(column.getColumnName().toLowerCase());
-            }
-        }
-        Model model = new Model();
-        model.setAuthor("hua");
-        model.setClassName(className);
-        model.setModuleName("com.bocins.springcloud.carlistquery");
-        model.setPackageName("vo");
-        model.setRemark(className + "实体类");
-        model.setColumnList(columnList);
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("Model", model);
-        temp.process(map, fileWriter);
-        fileWriter.flush();
-        fileWriter.close();
-
-    }
 
 }
