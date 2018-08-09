@@ -59,7 +59,7 @@
         <#if item_has_next>
         ${item.columnName},
         <#else>
-        ${item.columnName}"
+        ${item.columnName}
         </#if>
     </#list>
         )
@@ -76,17 +76,17 @@
     </insert>
     <!--修改-->
     <update id="update" parameterType="${Model.className ?cap_first}">
-        update ${Model.tableName}
+        update ${Model.tableName} P
         <set>
         <#list Model.columnList as item>
             <#if  Model.tableId != item.columnName>
-                <if test="${item.formateColumnName} != null and ${item.formateColumnName} != ''">
-                    AND ${item.columnName} = ${"#"}{${item.formateColumnName}}
-                </if>
+            <if test="${item.formateColumnName} != null and ${item.formateColumnName} != ''">
+                P.${item.columnName} = ${"#"}{${item.formateColumnName}},
+            </if>
             </#if>
         </#list>
         </set>
-        WHERE ${Model.tableId!id} = ${"#"}{${Model.className!id}}
+        WHERE ${Model.tableId!id} = ${"#"}{${Model.classId!id}}
     </update>
     <!--删除-->
     <delete id="delete" parameterType="${Model.className ?cap_first}">
@@ -95,7 +95,7 @@
         <where>
         <#list Model.columnList as item>
             <if test="${item.formateColumnName} != null and ${item.formateColumnName} != ''">
-                AND P.${item.columnName} = ${"#"}{${item.formateColumnName}}
+                AND ${item.columnName} = ${"#"}{${item.formateColumnName}}
             </if>
         </#list>
         </where>

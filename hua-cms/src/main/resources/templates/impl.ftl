@@ -37,13 +37,13 @@ public class ${Model.className}ServiceImpl implements ${Model.className}Service 
     }
 
     @Override
-    public int deleteList(List<${Model.className}> areaList) throws Exception {
+    public int deleteList(List<${Model.className}> ${Model.className?uncap_first}List) throws Exception {
         return baseDao.deleteList(MapperEnum.${Model.className?upper_case}.getUrl() + "delete", ${Model.className?uncap_first}List);
     }
 
     @Override
     public ${Model.className} getOne(String id) throws Exception {
-        return (Area) baseDao.getObject(MapperEnum.${Model.className?upper_case}.getUrl() + "getOne", id);
+        return (${Model.className}) baseDao.getObject(MapperEnum.${Model.className?upper_case}.getUrl() + "getOne", id);
     }
 
     @Override

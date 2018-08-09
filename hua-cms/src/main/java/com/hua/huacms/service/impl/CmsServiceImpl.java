@@ -55,13 +55,15 @@ public class CmsServiceImpl implements CmsService {
                 model.setColumnList(dbService.formatColumnList(dbType, model.getColumnList()));
                 if (StringUtils.isBlank(ftl)) {
                     //创建实体模板文件
-                    this.createFtl(model, url + "/hua/model", "model.ftl", ".java");
+                    this.createFtl(model, url + "/hua/entity", "model.ftl", ".java");
                     //创建映射模板文件
                     this.createFtl(model, url + "/hua/mapper", "mapper.ftl", "Mapper.xml");
                     //创建接口文件
                     this.createFtl(model, url + "/hua/service", "service.ftl", "Service.java");
                     //创建实现文件
                     this.createFtl(model, url + "/hua/service/impl", "impl.ftl", "ServiceImpl.java");
+                    //创建控制层文件
+                    this.createFtl(model, url + "/hua/controller", "controller.ftl", "Controller.java");
                 } else {
                     if ("model".equals(ftl)) {
                         //创建实体模板文件
@@ -75,6 +77,9 @@ public class CmsServiceImpl implements CmsService {
                     } else if ("impl".equals(ftl)) {
                         //创建实现文件
                         this.createFtl(model, url + "/hua/service/impl", "impl.ftl", "ServiceImpl.java");
+                    } else if ("controller".equals(ftl)) {
+                        //创建实现文件
+                        this.createFtl(model, url + "/hua/controller", "controller.ftl", "Controller.java");
                     }
                 }
             } else {
