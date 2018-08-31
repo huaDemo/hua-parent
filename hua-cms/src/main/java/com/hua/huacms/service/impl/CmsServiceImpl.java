@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Date;
@@ -24,7 +25,7 @@ import java.util.Map;
 @Service("cmsService")
 public class CmsServiceImpl implements CmsService {
 
-    @Autowired
+    @Resource(name = "dbService")
     private DBService dbService;
 
     @Override

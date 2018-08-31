@@ -1,0 +1,49 @@
+server:
+  port: 8083 #服务端口
+#公共配置与profiles选择无关 mapperLocations指的路径是src/main/resources
+
+#默认使用配置
+spring:
+  profiles:
+    active: dev
+
+#公共配置与profiles选择无关 mapperLocations指的路径是src/main/resources
+mybatis:
+  #MAPPER中简化包名
+  typeAliasesPackage: com/hua
+  mapperLocations: classpath:mapper/*.xml
+  #开启驼峰转换
+  configuration:
+    mapUnderscoreToCamelCase: true
+
+---
+
+#开发配置
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    #url: jdbc:oracle:thin:@21.8.129.162:1521:ncsit
+    #username: ywusersit
+    #password: abc
+    #driver-class-name: oracle.jdbc.driver.OracleDriver
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+  freemarker:
+      request-context-attribute: req  #req访问request
+      suffix: .ftl  #后缀名
+      content-type: text/html
+      enabled: true
+      cache: false #缓存配置
+      template-loader-path: classpath:/templates/ #模板加载路径 按需配置
+      charset: UTF-8 #编码格式
+      settings:
+        number_format: '0.##'   #数字格式化，无小数点
+
+cms:
+  dbname: demo
+  dbtype: mysql
+

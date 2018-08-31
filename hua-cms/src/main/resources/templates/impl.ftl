@@ -1,8 +1,8 @@
 package ${Model.moduleName}.${Model.packageName}.service.impl;
 
-import ${Model.moduleName}.${Model.packageName}.IBaseDao;
-import ${Model.moduleName}.${Model.packageName}.${Model.className};
-import ${Model.moduleName}.${Model.packageName}.entity.Page;
+import com.hua.dal.dao.IBaseDao;
+import com.hua.dal.entity.Page;
+import ${Model.moduleName}.${Model.packageName}.entity.${Model.className};
 import ${Model.moduleName}.${Model.packageName}.service.${Model.className}Service;
 import org.springframework.stereotype.Service;
 

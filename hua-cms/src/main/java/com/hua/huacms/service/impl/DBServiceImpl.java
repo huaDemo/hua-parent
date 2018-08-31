@@ -19,7 +19,7 @@ import java.util.List;
  * @author: hua
  * @create: 2018-06-14 18:19
  */
-@Service
+@Service("dbService")
 public class DBServiceImpl implements DBService {
 
     @Resource(name = "baseDao")

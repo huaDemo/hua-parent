@@ -11,6 +11,9 @@
     <modules>
         <module>hua-dal</module>
         <module>hua-cms</module>
+        <module>hua-app</module>
+        <module>hua-common</module>
+        <module>hua-portal</module>
     </modules>
 
 
