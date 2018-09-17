@@ -2,7 +2,7 @@ package com.hua.huacms.service.impl;
 
 import com.hua.dal.dao.IBaseDao;
 import com.hua.huacms.constant.DBEnum;
-import com.hua.huacms.constant.MapperEnum;
+import com.hua.huacms.constant.DBMapperEnum;
 import com.hua.huacms.entity.Column;
 import com.hua.huacms.entity.Table;
 import com.hua.huacms.service.DBService;
@@ -33,7 +33,7 @@ public class DBServiceImpl implements DBService {
             } else if (DBEnum.MYSQL.getDbType().equals(dbType)) {
                 Table table = new Table();
                 table.setTableSchema(dbName);
-                return (List<Table>) baseDao.getList(MapperEnum.MYSQL.getUrl() + ".getTableList", table);
+                return (List<Table>) baseDao.getList(DBMapperEnum.MYSQL.getUrl() + ".getTableList", table);
             }
         }
         return null;
@@ -45,11 +45,11 @@ public class DBServiceImpl implements DBService {
             if (DBEnum.ORACLE.getDbType().equals(dbType)) {
                 Column column = new Column();
                 column.setTableId(tableId);
-                return (List<Column>) baseDao.getList(MapperEnum.ORACLE.getUrl() + ".getColumnList", column);
+                return (List<Column>) baseDao.getList(DBMapperEnum.ORACLE.getUrl() + ".getColumnList", column);
             } else if (DBEnum.MYSQL.getDbType().equals(dbType)) {
                 Column column = new Column();
                 column.setTableId(tableId);
-                return (List<Column>) baseDao.getList(MapperEnum.MYSQL.getUrl() + ".getColumnList", column);
+                return (List<Column>) baseDao.getList(DBMapperEnum.MYSQL.getUrl() + ".getColumnList", column);
             }
         }
         return null;
@@ -59,9 +59,9 @@ public class DBServiceImpl implements DBService {
     public String getTableId(String tableName, String dbType) throws Exception {
         if (StringUtils.isNotBlank(dbType)) {
             if (DBEnum.ORACLE.getDbType().equals(dbType)) {
-                return (String) baseDao.getObject(MapperEnum.ORACLE.getUrl() + ".getTableId", tableName);
+                return (String) baseDao.getObject(DBMapperEnum.ORACLE.getUrl() + ".getTableId", tableName);
             } else if (DBEnum.MYSQL.getDbType().equals(dbType)) {
-                return (String) baseDao.getObject(MapperEnum.MYSQL.getUrl() + ".getTableId", tableName);
+                return (String) baseDao.getObject(DBMapperEnum.MYSQL.getUrl() + ".getTableId", tableName);
             }
         }
         return null;

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hua.portal.mapper.huaUser">
+    <!--查询字段信息-->
+    <sql id="searchCol">
+            P.id AS "id",
+            P.username AS "username",
+            P.password AS "password",
+            P.mobile AS "mobile",
+            P.email AS "email",
+            P.id_number AS "idNumber",
+            P.create_time AS "createTime",
+            P.last_login_time AS "lastLoginTime",
+            P.count AS "count"
+    </sql>
+    <!--关联查询相关sql-->
+    <sql id="joinSql">
+    </sql>
+    <!--查询单条-->
+    <select id="getOne" parameterType="String" resultType="HuaUser">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM hua_user P
+        <include refid="joinSql"></include>
+        WHERE P.id = #{HuaUser}
+    </select>
+    <!--查询多条-->
+    <select id="getList" parameterType="HuaUser" resultType="HuaUser">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM hua_user P
+        <include refid="joinSql"></include>
+        <where>
+            <if test="id != null and id != ''">
+                AND P.id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                AND P.username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                AND P.password = #{password}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                AND P.mobile = #{mobile}
+            </if>
+            <if test="email != null and email != ''">
+                AND P.email = #{email}
+            </if>
+            <if test="idNumber != null and idNumber != ''">
+                AND P.id_number = #{idNumber}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND P.create_time = #{createTime}
+            </if>
+            <if test="lastLoginTime != null and lastLoginTime != ''">
+                AND P.last_login_time = #{lastLoginTime}
+            </if>
+            <if test="count != null and count != ''">
+                AND P.count = #{count}
+            </if>
+        </where>
+    </select>
+    <!--统计查询-->
+    <select id="countList" parameterType="HuaUser" resultType="Integer">
+        SELECT count(*)
+        FROM hua_user P
+        <include refid="joinSql"></include>
+        <where>
+            <if test="id != null and id != ''">
+                AND P.id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                AND P.username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                AND P.password = #{password}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                AND P.mobile = #{mobile}
+            </if>
+            <if test="email != null and email != ''">
+                AND P.email = #{email}
+            </if>
+            <if test="idNumber != null and idNumber != ''">
+                AND P.id_number = #{idNumber}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND P.create_time = #{createTime}
+            </if>
+            <if test="lastLoginTime != null and lastLoginTime != ''">
+                AND P.last_login_time = #{lastLoginTime}
+            </if>
+            <if test="count != null and count != ''">
+                AND P.count = #{count}
+            </if>
+        </where>
+    </select>
+    <!--新增-->
+    <insert id="insert" parameterType="HuaUser">
+        INSERT INTO hua_user
+        (
+        id,
+        username,
+        password,
+        mobile,
+        email,
+        id_number,
+        create_time,
+        last_login_time,
+        count
+        )
+        VALUES
+        (
+        #{id},
+        #{username},
+        #{password},
+        #{mobile},
+        #{email},
+        #{idNumber},
+        #{createTime},
+        #{lastLoginTime},
+        #{count}
+        )
+    </insert>
+    <!--修改-->
+    <update id="update" parameterType="HuaUser">
+        update hua_user P
+        <set>
+            <if test="username != null and username != ''">
+                P.username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                P.password = #{password},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                P.mobile = #{mobile},
+            </if>
+            <if test="email != null and email != ''">
+                P.email = #{email},
+            </if>
+            <if test="idNumber != null and idNumber != ''">
+                P.id_number = #{idNumber},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                P.create_time = #{createTime},
+            </if>
+            <if test="lastLoginTime != null and lastLoginTime != ''">
+                P.last_login_time = #{lastLoginTime},
+            </if>
+            <if test="count != null and count != ''">
+                P.count = #{count},
+            </if>
+        </set>
+        WHERE id = #{hua_user}
+    </update>
+    <!--删除-->
+    <delete id="delete" parameterType="HuaUser">
+        DELETE FROM
+        hua_user
+        <where>
+            <if test="id != null and id != ''">
+                AND id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                AND username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                AND password = #{password}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                AND mobile = #{mobile}
+            </if>
+            <if test="email != null and email != ''">
+                AND email = #{email}
+            </if>
+            <if test="idNumber != null and idNumber != ''">
+                AND id_number = #{idNumber}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND create_time = #{createTime}
+            </if>
+            <if test="lastLoginTime != null and lastLoginTime != ''">
+                AND last_login_time = #{lastLoginTime}
+            </if>
+            <if test="count != null and count != ''">
+                AND count = #{count}
+            </if>
+        </where>
+    </delete>
+</mapper>

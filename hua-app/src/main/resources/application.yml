@@ -11,7 +11,7 @@ spring:
 mybatis:
   #MAPPER中简化包名
   typeAliasesPackage: com/hua
-  mapperLocations: classpath:mapper/*.xml
+  mapperLocations: classpath*:mapper/*.xml
   #开启驼峰转换
   configuration:
     mapUnderscoreToCamelCase: true

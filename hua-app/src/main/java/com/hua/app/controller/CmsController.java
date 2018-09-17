@@ -1,10 +1,10 @@
 package com.hua.app.controller;
 
 import com.hua.app.entity.CmsReqDO;
-import com.hua.app.entity.BaseResult;
 import com.hua.huacms.entity.Model;
 import com.hua.huacms.service.CmsService;
 import com.hua.huacms.service.DBService;
+import com.hua.huacommon.Util.BaseResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,6 +56,7 @@ public class CmsController {
         try {
             baseResult.setData(dbService.getTableList(this.dbName, this.dbType));
         } catch (Exception e) {
+            e.printStackTrace();
             baseResult.setCode(999);
             baseResult.setMessage(e.getMessage());
         }

@@ -1,7 +1,6 @@
 package com.hua.dal.service.impl;
 
 import com.hua.dal.dao.IBaseDao;
-import com.hua.dal.entity.Area;
 import com.hua.dal.service.IBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

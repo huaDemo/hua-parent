@@ -43,7 +43,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
                     response.setContentType("text/html;charset=utf-8");
                     response.getWriter().print("error");
                 } else {
-                    response.sendRedirect(request.getContextPath() + "/user/loginIndex");
+                    response.sendRedirect(request.getContextPath() + "/login.html");
                 }
                 return false;
             } else {

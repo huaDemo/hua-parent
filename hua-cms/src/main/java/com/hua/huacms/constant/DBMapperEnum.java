@@ -6,7 +6,7 @@ package com.hua.huacms.constant;
  * @author: hua
  * @create: 2018-06-15 14:37
  */
-public enum MapperEnum {
+public enum DBMapperEnum {
 
     //oracle
     ORACLE("com.hua.huacms.mapper.oracle"),
@@ -15,7 +15,7 @@ public enum MapperEnum {
 
     String url;//映射地址
 
-    MapperEnum(String url) {
+    DBMapperEnum(String url) {
         this.url = url;
     }
 

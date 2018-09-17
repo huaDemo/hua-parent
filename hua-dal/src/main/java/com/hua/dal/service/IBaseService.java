@@ -1,7 +1,6 @@
 package com.hua.dal.service;
 
 import com.hua.dal.dao.IBaseDao;
-import com.hua.dal.entity.Area;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

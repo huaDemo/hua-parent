@@ -1,4 +1,4 @@
-package com.hua.app.entity;
+package com.hua.huacommon.Util;
 
 /**
  * 所有请求的返回实体对象

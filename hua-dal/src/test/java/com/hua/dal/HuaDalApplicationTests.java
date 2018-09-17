@@ -1,7 +1,6 @@
 package com.hua.dal;
 
 import com.hua.dal.dao.IBaseDao;
-import com.hua.dal.entity.Area;
 import com.hua.dal.entity.Page;
 import org.apache.ibatis.session.RowBounds;
 import org.junit.Test;
@@ -40,14 +39,14 @@ public class HuaDalApplicationTests {
 
     }
 
-    @Test
+    /*@Test
     public void test() throws Exception {
-        /*String method = "com.hua.dal.mapper.area.getList";
+        *//*String method = "com.hua.dal.mapper.area.getList";
         int lastIndex = method.lastIndexOf(".");
-        String str = method.substring(0,lastIndex);*/
+        String str = method.substring(0,lastIndex);*//*
         Page page = new Page();
         page.setPageSize(2);
         Page areas = (Page) baseDao.getList("com.hua.dal.mapper.area.getList", new Area(), page);
-    }
+    }*/
 
 }
