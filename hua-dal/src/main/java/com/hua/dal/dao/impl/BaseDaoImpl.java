@@ -1,11 +1,9 @@
 package com.hua.dal.dao.impl;
 
 import com.hua.dal.dao.IBaseDao;
-import com.hua.dal.entity.Page;
-import org.apache.ibatis.annotations.Mapper;
+import com.hua.huacommon.Util.Page;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

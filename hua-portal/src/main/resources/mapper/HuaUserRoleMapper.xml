@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hua.portal.mapper.huaUserRole">
+    <!--查询字段信息-->
+    <sql id="searchCol">
+            P.id AS "id",
+            P.user_id AS "userId",
+            P.role_id AS "roleId"
+    </sql>
+    <!--关联查询相关sql-->
+    <sql id="joinSql">
+    </sql>
+    <!--查询单条-->
+    <select id="getOne" parameterType="String" resultType="HuaUserRole">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM hua_user_role P
+        <include refid="joinSql"></include>
+        WHERE id = #{HuaUserRole}
+    </select>
+    <!--查询多条-->
+    <select id="getList" parameterType="HuaUserRole" resultType="HuaUserRole">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM hua_user_role P
+        <include refid="joinSql"></include>
+        <where>
+            <if test="id != null and id != ''">
+                AND P.id = #{id}
+            </if>
+            <if test="userId != null and userId != ''">
+                AND P.user_id = #{userId}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                AND P.role_id = #{roleId}
+            </if>
+        </where>
+    </select>
+    <!--统计查询-->
+    <select id="countList" parameterType="HuaUserRole" resultType="Integer">
+        SELECT count(*)
+        FROM hua_user_role P
+        <include refid="joinSql"></include>
+        <where>
+            <if test="id != null and id != ''">
+                AND P.id = #{id}
+            </if>
+            <if test="userId != null and userId != ''">
+                AND P.user_id = #{userId}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                AND P.role_id = #{roleId}
+            </if>
+        </where>
+    </select>
+    <!--新增-->
+    <insert id="insert" parameterType="HuaUserRole">
+        INSERT INTO hua_user_role
+        (
+        id,
+        user_id,
+        role_id
+        )
+        VALUES
+        (
+        #{id},
+        #{userId},
+        #{roleId}
+        )
+    </insert>
+    <!--修改-->
+    <update id="update" parameterType="HuaUserRole">
+        update hua_user_role P
+        <set>
+            <if test="userId != null and userId != ''">
+                P.user_id = #{userId},
+            </if>
+            <if test="roleId != null and roleId != ''">
+                P.role_id = #{roleId},
+            </if>
+        </set>
+        WHERE id = #{hua_user_role}
+    </update>
+    <!--删除-->
+    <delete id="delete" parameterType="HuaUserRole">
+        DELETE FROM
+        hua_user_role
+        <where>
+            <if test="id != null and id != ''">
+                AND id = #{id}
+            </if>
+            <if test="userId != null and userId != ''">
+                AND user_id = #{userId}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                AND role_id = #{roleId}
+            </if>
+        </where>
+    </delete>
+</mapper>

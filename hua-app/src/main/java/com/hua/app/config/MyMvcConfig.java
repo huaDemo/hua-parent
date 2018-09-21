@@ -43,7 +43,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
                 //添加需要验证登录用户操作权限的请求
                 .addPathPatterns("/**")
                 //排除不需要验证登录用户操作权限的请求
-                .excludePathPatterns("/**")
+                /*.excludePathPatterns("/**")*/
                 .excludePathPatterns("/common/js/**")
                 .excludePathPatterns("/gentelella/**")
                 .excludePathPatterns("/huaUser/login")

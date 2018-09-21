@@ -1,16 +1,19 @@
 package com.hua.portal.controller;
 
-import com.hua.dal.entity.Page;
 import com.hua.huacommon.Util.BaseResult;
-import com.hua.portal.entity.HuaUser;
-import com.hua.portal.service.HuaUserService;
+import com.hua.huacommon.Util.Page;
+import com.hua.portal.entity.*;
+import com.hua.portal.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -25,6 +28,18 @@ public class HuaUserController {
 
     @Autowired
     private HuaUserService huaUserService;
+
+    @Autowired
+    private HuaUserRoleService huaUserRoleService;
+
+    @Autowired
+    private HuaRoleService huaRoleService;
+
+    @Autowired
+    private HuaRightService huaRightService;
+
+    @Autowired
+    private HuaRoleRightService huaRoleRightService;
 
     /**
      * 查询单条
@@ -53,7 +68,7 @@ public class HuaUserController {
      * @throws Exception
      */
     @RequestMapping(value = "/getlist", method = RequestMethod.POST)
-    public BaseResult getList(@RequestBody HuaUser huaUser) throws Exception {
+    public BaseResult getList(HuaUser huaUser) throws Exception {
         BaseResult baseResult = new BaseResult();
         if (huaUser != null) {
             baseResult.setData(huaUserService.getList(huaUser));
@@ -73,7 +88,7 @@ public class HuaUserController {
      * @throws Exception
      */
     @RequestMapping(value = "/getpage", method = RequestMethod.POST)
-    public BaseResult getListByPage(@RequestBody HuaUser huaUser, @RequestBody Page page) throws Exception {
+    public BaseResult getListByPage(HuaUser huaUser, Page page) throws Exception {
         BaseResult baseResult = new BaseResult();
         if (huaUser != null) {
             baseResult.setData(huaUserService.getList(huaUser, page));
@@ -92,7 +107,7 @@ public class HuaUserController {
      * @throws Exception
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public BaseResult update(@RequestBody HuaUser huaUser) throws Exception {
+    public BaseResult update(HuaUser huaUser) throws Exception {
         BaseResult baseResult = new BaseResult();
         if (huaUser != null) {
             baseResult.setData(huaUserService.update(huaUser));
@@ -111,7 +126,7 @@ public class HuaUserController {
      * @throws Exception
      */
     @RequestMapping(value = "/updatelist", method = RequestMethod.POST)
-    public BaseResult updateList(@RequestBody List<HuaUser> huaUserList) throws Exception {
+    public BaseResult updateList(List<HuaUser> huaUserList) throws Exception {
         BaseResult baseResult = new BaseResult();
         if (huaUserList != null && huaUserList.size() > 0) {
             baseResult.setData(huaUserService.updateList(huaUserList));
@@ -130,7 +145,7 @@ public class HuaUserController {
      * @throws Exception
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public BaseResult delete(@RequestBody HuaUser huaUser) throws Exception {
+    public BaseResult delete(HuaUser huaUser) throws Exception {
         BaseResult baseResult = new BaseResult();
         if (huaUser != null) {
             baseResult.setData(huaUserService.delete(huaUser));
@@ -149,7 +164,7 @@ public class HuaUserController {
      * @throws Exception
      */
     @RequestMapping(value = "/deletelist", method = RequestMethod.POST)
-    public BaseResult deletelist(@RequestBody List<HuaUser> huaUserList) throws Exception {
+    public BaseResult deletelist(List<HuaUser> huaUserList) throws Exception {
         BaseResult baseResult = new BaseResult();
         if (huaUserList != null && huaUserList.size() > 0) {
             baseResult.setData(huaUserService.deleteList(huaUserList));
@@ -168,7 +183,7 @@ public class HuaUserController {
      * @throws Exception
      */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public BaseResult insert(@RequestBody HuaUser huaUser) throws Exception {
+    public BaseResult insert(HuaUser huaUser) throws Exception {
         BaseResult baseResult = new BaseResult();
         if (huaUser != null) {
             baseResult.setData(huaUserService.insert(huaUser));
@@ -187,7 +202,7 @@ public class HuaUserController {
      * @throws Exception
      */
     @RequestMapping(value = "/insertlist", method = RequestMethod.POST)
-    public BaseResult insertList(@RequestBody List<HuaUser> huaUserList) throws Exception {
+    public BaseResult insertList(List<HuaUser> huaUserList) throws Exception {
         BaseResult baseResult = new BaseResult();
         if (huaUserList != null && huaUserList.size() > 0) {
             baseResult.setData(huaUserService.insertList(huaUserList));
@@ -225,6 +240,50 @@ public class HuaUserController {
             baseResult.setCode(999);
             baseResult.setMessage("入参不可为空!");
         }
+        return baseResult;
+    }
+
+    /**
+     * 加载左侧权限按钮
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/loadmenu", method = RequestMethod.POST)
+    public BaseResult loadMenu(HttpServletRequest request) throws Exception {
+        BaseResult baseResult = new BaseResult();
+        //获取用户信息
+        HuaUser user = (HuaUser) request.getSession().getAttribute("user");
+        if (user != null) {
+            //获取用户角色
+            HuaUserRole huaUserRole = new HuaUserRole();
+            huaUserRole.setUserId(user.getId());
+            List<HuaUserRole> huaUserRoleList = (List<HuaUserRole>) huaUserRoleService.getList(huaUserRole);
+            if (huaUserRoleList != null && huaUserRoleList.size() > 0) {
+                HuaRole huaRole = huaRoleService.getOne(huaUserRoleList.get(0).getRoleId());
+                //获取用户权限
+                HuaRoleRight huaRoleRight = new HuaRoleRight();
+                huaRoleRight.setRoleId(huaRole.getId());
+                List<HuaRoleRight> huaRoleRightList = (List<HuaRoleRight>) huaRoleRightService.getList(huaRoleRight);
+                if (huaRoleRightList != null && huaRoleRightList.size() > 0) {
+                    Map<String, List<HuaRight>> childMap = new HashMap<String, List<HuaRight>>();
+                    for (HuaRoleRight huaRoleRight1 : huaRoleRightList) {
+                        HuaRight huaRight = huaRightService.getOne(huaRoleRight1.getRightId());
+                        if (childMap.containsKey(huaRight.getParentRight())) {
+                            childMap.get(huaRight.getParentRight()).add(huaRight);
+                        } else {
+                            List<HuaRight> list = new ArrayList<HuaRight>();
+                            list.add(huaRight);
+                            childMap.put(huaRight.getParentRight(), list);
+                        }
+                    }
+                    baseResult.setData(childMap);
+                    return baseResult;
+                }
+            }
+        }
+        baseResult.setCode(999);
+        baseResult.setMessage("加载左侧权限按钮失败!");
         return baseResult;
     }
 

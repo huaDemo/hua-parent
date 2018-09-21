@@ -1,7 +1,7 @@
 package ${Model.moduleName}.${Model.packageName}.service;
 
 import ${Model.moduleName}.${Model.packageName}.entity.${Model.className};
-import ${Model.moduleName}.${Model.packageName}.entity.Page;
+import com.hua.huacommon.Util.Page;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.hua.dal;
 
 import com.hua.dal.dao.IBaseDao;
-import com.hua.dal.entity.Page;
+import com.hua.huacommon.Util.Page;
 import org.apache.ibatis.session.RowBounds;
 import org.junit.Test;
 import org.junit.runner.RunWith;

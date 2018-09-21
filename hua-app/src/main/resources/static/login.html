@@ -25,7 +25,7 @@
         function login() {
             jh.formAjax($('#form1'), "/huaUser/login", function (data) {
                 if (data.code === 0) {
-                    window.location.href = jh.getRootPath() + "/test.html";
+                    window.location.href = jh.getRootPath() + "/index.html";
                 }else {
                     alert(data.message);
                 }

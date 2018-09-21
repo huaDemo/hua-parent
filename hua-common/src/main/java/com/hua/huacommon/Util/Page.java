@@ -1,4 +1,4 @@
-package com.hua.dal.entity;
+package com.hua.huacommon.Util;
 
 import java.util.List;
 

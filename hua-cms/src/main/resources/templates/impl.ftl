@@ -1,7 +1,7 @@
 package ${Model.moduleName}.${Model.packageName}.service.impl;
 
 import com.hua.dal.dao.IBaseDao;
-import com.hua.dal.entity.Page;
+import com.hua.huacommon.Util.Page;
 import ${Model.moduleName}.${Model.packageName}.entity.${Model.className};
 import ${Model.moduleName}.${Model.packageName}.service.${Model.className}Service;
 import org.springframework.stereotype.Service;

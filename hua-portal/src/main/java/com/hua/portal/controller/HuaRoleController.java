@@ -1,9 +1,9 @@
-package ${Model.moduleName}.${Model.packageName}.controller;
+package com.hua.portal.controller;
 
 import com.hua.huacommon.Util.BaseResult;
 import com.hua.huacommon.Util.Page;
-import ${Model.moduleName}.${Model.packageName}.entity.${Model.className};
-import ${Model.moduleName}.${Model.packageName}.service.${Model.className}Service;
+import com.hua.portal.entity.HuaRole;
+import com.hua.portal.service.HuaRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,17 +11,17 @@ import java.util.List;
 
 
 /**
-* ${Model.remark!}控制层服务
+* 角色控制层服务
 *
-* @author: ${Model.author!hua}
-* @create: ${Model.createTime?string("yyyy-MM-dd HH:mm:ss")!}
+* @author: hua
+* @create: 2018-09-17 21:13:01
 */
 @RestController
-@RequestMapping("/${Model.className?uncap_first}")
-public class ${Model.className}Controller {
+@RequestMapping("/huaRole")
+public class HuaRoleController {
 
     @Autowired
-    private ${Model.className}Service ${Model.className?uncap_first}Service;
+    private HuaRoleService huaRoleService;
 
     /**
     * 查询单条
@@ -34,7 +34,7 @@ public class ${Model.className}Controller {
     public BaseResult getOne(@PathVariable("id") String id) throws Exception {
         BaseResult baseResult = new BaseResult();
         if (id != null) {
-            baseResult.setData(${Model.className?uncap_first}Service.getOne(id));
+            baseResult.setData(huaRoleService.getOne(id));
         } else {
             baseResult.setCode(999);
             baseResult.setMessage("入参不可为空!");
@@ -45,15 +45,15 @@ public class ${Model.className}Controller {
     /**
     * 查询多条
     *
-    * @param ${Model.className?uncap_first}
+    * @param huaRole
     * @return
     * @throws Exception
     */
     @RequestMapping(value = "/getlist", method = RequestMethod.POST)
-    public BaseResult getList(${Model.className} ${Model.className?uncap_first}) throws Exception {
+    public BaseResult getList(HuaRole huaRole) throws Exception {
         BaseResult baseResult = new BaseResult();
-        if (${Model.className?uncap_first} != null) {
-            baseResult.setData(${Model.className?uncap_first}Service.getList(${Model.className?uncap_first}));
+        if (huaRole != null) {
+            baseResult.setData(huaRoleService.getList(huaRole));
         } else {
             baseResult.setCode(999);
             baseResult.setMessage("入参不可为空!");
@@ -64,16 +64,16 @@ public class ${Model.className}Controller {
     /**
     * 分页查询
     *
-    * @param ${Model.className?uncap_first}
+    * @param huaRole
     * @param page
     * @return
     * @throws Exception
     */
     @RequestMapping(value = "/getpage", method = RequestMethod.POST)
-    public BaseResult getListByPage(${Model.className} ${Model.className?uncap_first}, Page page) throws Exception {
+    public BaseResult getListByPage(HuaRole huaRole, Page page) throws Exception {
         BaseResult baseResult = new BaseResult();
-        if (${Model.className?uncap_first} != null) {
-            baseResult.setData(${Model.className?uncap_first}Service.getList(${Model.className?uncap_first}, page));
+        if (huaRole != null) {
+            baseResult.setData(huaRoleService.getList(huaRole, page));
         } else {
             baseResult.setCode(999);
             baseResult.setMessage("入参不可为空!");
@@ -84,15 +84,15 @@ public class ${Model.className}Controller {
     /**
     * 修改单条
     *
-    * @param ${Model.className?uncap_first}
+    * @param huaRole
     * @return
     * @throws Exception
     */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public BaseResult update(${Model.className} ${Model.className?uncap_first}) throws Exception {
+    public BaseResult update(HuaRole huaRole) throws Exception {
         BaseResult baseResult = new BaseResult();
-        if (${Model.className?uncap_first} != null) {
-            baseResult.setData(${Model.className?uncap_first}Service.update(${Model.className?uncap_first}));
+        if (huaRole != null) {
+            baseResult.setData(huaRoleService.update(huaRole));
         } else {
             baseResult.setCode(999);
             baseResult.setMessage("入参不可为空!");
@@ -103,15 +103,15 @@ public class ${Model.className}Controller {
     /**
     * 修改多条
     *
-    * @param ${Model.className?uncap_first}List
+    * @param huaRoleList
     * @return
     * @throws Exception
     */
     @RequestMapping(value = "/updatelist", method = RequestMethod.POST)
-    public BaseResult updateList(List<${Model.className}> ${Model.className?uncap_first}List) throws Exception {
+    public BaseResult updateList(List<HuaRole> huaRoleList) throws Exception {
         BaseResult baseResult = new BaseResult();
-        if (${Model.className?uncap_first}List != null && ${Model.className?uncap_first}List.size() > 0) {
-            baseResult.setData(${Model.className?uncap_first}Service.updateList(${Model.className?uncap_first}List));
+        if (huaRoleList != null && huaRoleList.size() > 0) {
+            baseResult.setData(huaRoleService.updateList(huaRoleList));
         } else {
             baseResult.setCode(999);
             baseResult.setMessage("入参不可为空!");
@@ -122,15 +122,15 @@ public class ${Model.className}Controller {
     /**
     * 删除单条
     *
-    * @param ${Model.className?uncap_first}
+    * @param huaRole
     * @return
     * @throws Exception
     */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public BaseResult delete(${Model.className} ${Model.className?uncap_first}) throws Exception {
+    public BaseResult delete(HuaRole huaRole) throws Exception {
         BaseResult baseResult = new BaseResult();
-        if (${Model.className?uncap_first} != null) {
-            baseResult.setData(${Model.className?uncap_first}Service.delete(${Model.className?uncap_first}));
+        if (huaRole != null) {
+            baseResult.setData(huaRoleService.delete(huaRole));
         } else {
             baseResult.setCode(999);
             baseResult.setMessage("入参不可为空!");
@@ -141,15 +141,15 @@ public class ${Model.className}Controller {
     /**
     * 删除多条
     *
-    * @param ${Model.className?uncap_first}List
+    * @param huaRoleList
     * @return
     * @throws Exception
     */
     @RequestMapping(value = "/deletelist", method = RequestMethod.POST)
-    public BaseResult deletelist(List<${Model.className}> ${Model.className?uncap_first}List) throws Exception {
+    public BaseResult deletelist(List<HuaRole> huaRoleList) throws Exception {
         BaseResult baseResult = new BaseResult();
-        if (${Model.className?uncap_first}List != null && ${Model.className?uncap_first}List.size() > 0) {
-            baseResult.setData(${Model.className?uncap_first}Service.deleteList(${Model.className?uncap_first}List));
+        if (huaRoleList != null && huaRoleList.size() > 0) {
+            baseResult.setData(huaRoleService.deleteList(huaRoleList));
         } else {
             baseResult.setCode(999);
             baseResult.setMessage("入参不可为空!");
@@ -160,15 +160,15 @@ public class ${Model.className}Controller {
     /**
     * 新增单条
     *
-    * @param ${Model.className?uncap_first}
+    * @param huaRole
     * @return
     * @throws Exception
     */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public BaseResult insert(${Model.className} ${Model.className?uncap_first}) throws Exception {
+    public BaseResult insert(HuaRole huaRole) throws Exception {
         BaseResult baseResult = new BaseResult();
-        if (${Model.className?uncap_first} != null) {
-            baseResult.setData(${Model.className?uncap_first}Service.insert(${Model.className?uncap_first}));
+        if (huaRole != null) {
+            baseResult.setData(huaRoleService.insert(huaRole));
         } else {
             baseResult.setCode(999);
             baseResult.setMessage("入参不可为空!");
@@ -179,15 +179,15 @@ public class ${Model.className}Controller {
     /**
     * 新增多条
     *
-    * @param ${Model.className?uncap_first}List
+    * @param huaRoleList
     * @return
     * @throws Exception
     */
     @RequestMapping(value = "/insertlist", method = RequestMethod.POST)
-    public BaseResult insertList(List<${Model.className}> ${Model.className?uncap_first}List) throws Exception {
+    public BaseResult insertList(List<HuaRole> huaRoleList) throws Exception {
         BaseResult baseResult = new BaseResult();
-        if (${Model.className?uncap_first}List != null && ${Model.className?uncap_first}List.size() > 0) {
-            baseResult.setData(${Model.className?uncap_first}Service.insertList(${Model.className?uncap_first}List));
+        if (huaRoleList != null && huaRoleList.size() > 0) {
+            baseResult.setData(huaRoleService.insertList(huaRoleList));
         } else {
             baseResult.setCode(999);
             baseResult.setMessage("入参不可为空!");
