@@ -34,6 +34,12 @@ document.write('<script src="../gentelella/vendors/pdfmake/build/vfs_fonts.js"><
 window.jh = {};
 //jh初始化
 (function () {
+    /**
+     * 表单ajax提交
+     * @param form
+     * @param url
+     * @param func
+     */
     jh.formAjax = function (form, url, func) {
         if (url) {
             url = jh.getRootPath() + url;
@@ -65,6 +71,12 @@ window.jh = {};
         }
     };
 
+    /**
+     * ajax提交
+     * @param url
+     * @param data
+     * @param func
+     */
     jh.ajax = function (url, data, func) {
         if (url) {
             url = jh.getRootPath() + url;
@@ -93,7 +105,10 @@ window.jh = {};
             }
         );
     };
-
+    /**
+     * 获取相对路径
+     * @returns {string}
+     */
     jh.getRootPath = function () {
         //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
         var curWwwPath = window.document.location.href;
@@ -105,6 +120,72 @@ window.jh = {};
         //获取带"/"的项目名，如：/uimcardprj
         //var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
         return (localhostPaht/* + projectName*/);
+    };
+
+    /**
+     * 加载表格
+     * @param data
+     */
+    jh.loadTable = function (data) {
+        var num = true;
+        for (var key in data) {
+            var _html = "";
+            if (num) {
+                _html += '<tr class="even pointer">';
+                num = false;
+            } else {
+                _html += '<tr class="odd pointer">';
+                num = true;
+            }
+            _html += '<td class="a-center ">';
+            _html += '<input type="checkbox" class="flat" name="table_records">';
+            _html += '</td>';
+            for (var j in data[key]) {
+                _html += '<td class=" ">' + data[key][j] + '</td>';
+            }
+            _html += '</tr>';
+            $("#tableBody").append(_html);
+        }
+    };
+
+    /**
+     * 加载分页
+     * @param data
+     */
+    jh.loadPage = function (data) {
+        var currentPage = parseInt(data.currentPage);
+        var totalPage = parseInt(data.totalPage);
+        var _html = "";
+        _html += '<li class="paginate_button previous disabled" id="datatable-checkbox_previous"><a onclick="goPage(&quot;' + (currentPage - 1) + '&quot;)"  aria-controls="datatable-checkbox" data-dt-idx="0" tabindex="0">Previous</a></li>';
+        for (var i = 0; i < totalPage; i++) {
+            if (i >= 5) {
+                _html += '<li class="paginate_button active"><a aria-controls="datatable-checkbox" data-dt-idx="1" tabindex="0">...</a></li>';
+                break;
+            }
+            if (i === 0) {
+                _html += '<li class="paginate_button active"><a onclick="goPage(&quot;' + (currentPage + i) + '&quot;)" aria-controls="datatable-checkbox" data-dt-idx="1" tabindex="0">' + (currentPage + i) + '</a></li>';
+            } else {
+                _html += '<li class="paginate_button"><a onclick="goPage(&quot;' + (currentPage + i) + '&quot;)" aria-controls="datatable-checkbox" data-dt-idx="1" tabindex="0">' + (currentPage + i) + '</a></li>';
+            }
+        }
+        _html += '<li class="paginate_button next" id="datatable-checkbox_next"><a onclick="goPage(&quot;' + (currentPage + 1) + '&quot;)" aria-controls="datatable-checkbox" data-dt-idx="7" tabindex="0">Next</a></li>';
+        $("#page").html(_html);
+    };
+
+    /**
+     * 提交表格
+     * @param url
+     * @param data
+     */
+    jh.submitTable = function (url, data) {
+        jh.ajax(url, data, function (data) {
+            if (data != null && data.code === 0) {
+                jh.loadPage(data.data);//加载分页
+                jh.loadTable(data.data.data);//加载表格
+            } else {
+                alert(data.message);
+            }
+        });
     };
 
 })();

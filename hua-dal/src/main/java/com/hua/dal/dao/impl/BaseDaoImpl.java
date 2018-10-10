@@ -77,7 +77,8 @@ public class BaseDaoImpl implements IBaseDao {
             //查询总记录数
             Integer totalRecord = (Integer) this.getObject(str + "countList", parameter);
             if (totalRecord != null && totalRecord != 0) {
-                RowBounds rowBounds = new RowBounds(page.getCurrentPage(), page.getPageSize());
+                //offset:起始行 limit:当前页显示多少条数据
+                RowBounds rowBounds = new RowBounds(page.getCurrentPage() - 1, page.getPageSize());
                 List<Object> objects = sqlSessionTemplate.selectList(method, parameter, rowBounds);
                 page.setTotalRecord(totalRecord);
                 page.setTotalPage((totalRecord - 1) / page.getPageSize() + 1);

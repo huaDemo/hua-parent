@@ -59,7 +59,8 @@ public class DBServiceImpl implements DBService {
     public String getTableId(String tableName, String dbType) throws Exception {
         if (StringUtils.isNotBlank(dbType)) {
             if (DBEnum.ORACLE.getDbType().equals(dbType)) {
-                return (String) baseDao.getObject(DBMapperEnum.ORACLE.getUrl() + ".getTableId", tableName);
+                String str = ((List<String>) baseDao.getList(DBMapperEnum.ORACLE.getUrl() + ".getTableId", tableName)).get(0);
+                return str;
             } else if (DBEnum.MYSQL.getDbType().equals(dbType)) {
                 return (String) baseDao.getObject(DBMapperEnum.MYSQL.getUrl() + ".getTableId", tableName);
             }

@@ -26,6 +26,20 @@
     <link href="../gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../gentelella/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
+    <script>
+        //加载表格
+        function load() {
+            var pageSize = $("#pageSize").val();
+
+            /*var data = {};*/
+            /*data["id"] = "3424dsfs";*/
+            /*data["pageSize"] = pageSize;*/
+
+            jh.submitTable("/huaRole/getpage", null);
+        }
+
+    </script>
+
 
 </head>
 
@@ -43,7 +57,8 @@
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="#">Settings 1</a>
                                         </li>
@@ -57,179 +72,110 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <p class="text-muted font-13 m-b-30">
-                                DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>
-                            </p>
-                            <div class="table-responsive">
-                                <table class="table table-striped jambo_table bulk_action">
-                                    <thead>
-                                    <tr class="headings">
-                                        <th>
-                                            <input type="checkbox" id="check-all" class="flat">
-                                        </th>
-                                        <th class="column-title">Invoice</th>
-                                        <th class="column-title">Invoice Date</th>
-                                        <th class="column-title">Order</th>
-                                        <th class="column-title">Bill to Name</th>
-                                        <th class="column-title">Status</th>
-                                        <th class="column-title">Amount</th>
-                                        <th class="column-title no-link last"><span class="nobr">Action</span>
-                                        </th>
-                                        <th class="bulk-actions" colspan="7">
-                                            <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                                        </th>
-                                    </tr>
-                                    </thead>
+                            <!--搜索-->
+                            <div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group" style="width: 20%">
+                                            <table>
+                                                <tr>
+                                                    <td><label>Show:</label></td>
+                                                    <td><select id="pageSize" class="form-control input-sm">
+                                                        <option value="10">10</option>
+                                                        <option value="25">25</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                    </select></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <table style="float: right">
+                                            <tr>
+                                                <td><label>Search:</label></td>
+                                                <td><input type="search" class="form-control input-sm"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
 
-                                    <tbody>
-                                    <tr class="even pointer">
-                                        <td class="a-center ">
-                                            <input type="checkbox" class="flat" name="table_records">
-                                        </td>
-                                        <td class=" ">121000040</td>
-                                        <td class=" ">May 23, 2014 11:47:56 PM</td>
-                                        <td class=" ">121000210 <i class="success fa fa-long-arrow-up"></i></td>
-                                        <td class=" ">John Blank L</td>
-                                        <td class=" ">Paid</td>
-                                        <td class="a-right a-right ">$7.45</td>
-                                        <td class=" last"><a href="#">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd pointer">
-                                        <td class="a-center ">
-                                            <input type="checkbox" class="flat" name="table_records">
-                                        </td>
-                                        <td class=" ">121000039</td>
-                                        <td class=" ">May 23, 2014 11:30:12 PM</td>
-                                        <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i>
-                                        </td>
-                                        <td class=" ">John Blank L</td>
-                                        <td class=" ">Paid</td>
-                                        <td class="a-right a-right ">$741.20</td>
-                                        <td class=" last"><a href="#">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even pointer">
-                                        <td class="a-center ">
-                                            <input type="checkbox" class="flat" name="table_records">
-                                        </td>
-                                        <td class=" ">121000038</td>
-                                        <td class=" ">May 24, 2014 10:55:33 PM</td>
-                                        <td class=" ">121000203 <i class="success fa fa-long-arrow-up"></i>
-                                        </td>
-                                        <td class=" ">Mike Smith</td>
-                                        <td class=" ">Paid</td>
-                                        <td class="a-right a-right ">$432.26</td>
-                                        <td class=" last"><a href="#">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd pointer">
-                                        <td class="a-center ">
-                                            <input type="checkbox" class="flat" name="table_records">
-                                        </td>
-                                        <td class=" ">121000037</td>
-                                        <td class=" ">May 24, 2014 10:52:44 PM</td>
-                                        <td class=" ">121000204</td>
-                                        <td class=" ">Mike Smith</td>
-                                        <td class=" ">Paid</td>
-                                        <td class="a-right a-right ">$333.21</td>
-                                        <td class=" last"><a href="#">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even pointer">
-                                        <td class="a-center ">
-                                            <input type="checkbox" class="flat" name="table_records">
-                                        </td>
-                                        <td class=" ">121000040</td>
-                                        <td class=" ">May 24, 2014 11:47:56 PM</td>
-                                        <td class=" ">121000210</td>
-                                        <td class=" ">John Blank L</td>
-                                        <td class=" ">Paid</td>
-                                        <td class="a-right a-right ">$7.45</td>
-                                        <td class=" last"><a href="#">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd pointer">
-                                        <td class="a-center ">
-                                            <input type="checkbox" class="flat" name="table_records">
-                                        </td>
-                                        <td class=" ">121000039</td>
-                                        <td class=" ">May 26, 2014 11:30:12 PM</td>
-                                        <td class=" ">121000208 <i class="error fa fa-long-arrow-down"></i>
-                                        </td>
-                                        <td class=" ">John Blank L</td>
-                                        <td class=" ">Paid</td>
-                                        <td class="a-right a-right ">$741.20</td>
-                                        <td class=" last"><a href="#">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="even pointer">
-                                        <td class="a-center ">
-                                            <input type="checkbox" class="flat" name="table_records">
-                                        </td>
-                                        <td class=" ">121000038</td>
-                                        <td class=" ">May 26, 2014 10:55:33 PM</td>
-                                        <td class=" ">121000203</td>
-                                        <td class=" ">Mike Smith</td>
-                                        <td class=" ">Paid</td>
-                                        <td class="a-right a-right ">$432.26</td>
-                                        <td class=" last"><a href="#">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd pointer">
-                                        <td class="a-center ">
-                                            <input type="checkbox" class="flat" name="table_records">
-                                        </td>
-                                        <td class=" ">121000037</td>
-                                        <td class=" ">May 26, 2014 10:52:44 PM</td>
-                                        <td class=" ">121000204</td>
-                                        <td class=" ">Mike Smith</td>
-                                        <td class=" ">Paid</td>
-                                        <td class="a-right a-right ">$333.21</td>
-                                        <td class=" last"><a href="#">View</a>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="even pointer">
-                                        <td class="a-center ">
-                                            <input type="checkbox" class="flat" name="table_records">
-                                        </td>
-                                        <td class=" ">121000040</td>
-                                        <td class=" ">May 27, 2014 11:47:56 PM</td>
-                                        <td class=" ">121000210</td>
-                                        <td class=" ">John Blank L</td>
-                                        <td class=" ">Paid</td>
-                                        <td class="a-right a-right ">$7.45</td>
-                                        <td class=" last"><a href="#">View</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="odd pointer">
-                                        <td class="a-center ">
-                                            <input type="checkbox" class="flat" name="table_records">
-                                        </td>
-                                        <td class=" ">121000039</td>
-                                        <td class=" ">May 28, 2014 11:30:12 PM</td>
-                                        <td class=" ">121000208</td>
-                                        <td class=" ">John Blank L</td>
-                                        <td class=" ">Paid</td>
-                                        <td class="a-right a-right ">$741.20</td>
-                                        <td class=" last"><a href="#">View</a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div class="col-md-offset-9" >
-                                    <ul class="pagination">
-                                        <li><a href="#">&laquo;</a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">&raquo;</a></li>
-                                    </ul>
                                 </div>
                             </div>
+                            <!--搜索-->
+
+                            <!--表单-->
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped jambo_table bulk_action">
+                                            <thead>
+                                            <tr class="headings">
+                                                <th>
+                                                    <input type="checkbox" id="check-all" class="flat">
+                                                </th>
+                                                <th class="column-title">id</th>
+                                                <th class="column-title">name</th>
+                                                <th class="column-title">createTime</th>
+                                                <th class="column-title">description</th>
+                                                </th>
+                                                <th class="bulk-actions" colspan="7">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions (<span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody id="tableBody">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--表单-->
+
+                            <!--分页-->
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="dataTables_info" id="datatable-checkbox_info" role="status"
+                                         aria-live="polite">Showing 1 to 10 of 57 entries
+                                    </div>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+                                        <ul class="pagination" id="page">
+                                            <!--<li class="paginate_button previous disabled" id="datatable-checkbox_previous">
+                                                <a href="" onclick="goPage('0')" aria-controls="datatable-checkbox" data-dt-idx="0" tabindex="0">Previous</a>
+                                            </li>
+                                            <li class="paginate_button active">
+                                                <a href="" onclick="goPage('0')" aria-controls="datatable-checkbox" data-dt-idx="1" tabindex="0">1</a>
+                                            </li>
+                                            <li class="paginate_button ">
+                                                <a href="#" aria-controls="datatable-checkbox" data-dt-idx="2" tabindex="0">2</a>
+                                            </li>
+                                            <li class="paginate_button ">
+                                                <a href="#" aria-controls="datatable-checkbox" data-dt-idx="3" tabindex="0">3</a>
+                                            </li>
+                                            <li class="paginate_button ">
+                                                <a href="#" aria-controls="datatable-checkbox" data-dt-idx="4" tabindex="0">4</a>
+                                            </li>
+                                            <li class="paginate_button ">
+                                                <a href="#" aria-controls="datatable-checkbox" data-dt-idx="5" tabindex="0">5</a>
+                                            </li>
+                                            <li class="paginate_button ">
+                                                <a href="#" aria-controls="datatable-checkbox" data-dt-idx="6" tabindex="0">6</a>
+                                            </li>
+                                            <li class="paginate_button ">
+                                                <a href="#" aria-controls="datatable-checkbox" data-dt-idx="..." tabindex="0">6</a>
+                                            </li>
+                                            <li class="paginate_button next" id="datatable-checkbox_next">
+                                                <a href="#" aria-controls="datatable-checkbox" data-dt-idx="7" tabindex="0">Next</a>
+                                            </li>-->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--分页-->
+
                         </div>
                     </div>
                 </div>
@@ -241,7 +187,7 @@
 <script src="../common/js/jh.js"></script>
 <script>
     $(document).ready(function () {
-
+        load();
     });
 </script>
 </body>

@@ -44,13 +44,15 @@
                         _html += arr[i].name;
                         _html += '<span class="fa fa-chevron-down"></span></a></li>';
                         var arr1 = data[arr[i].id];
-                        _html += '<ul class="nav child_menu">';
-                        for (var j = 0; j < arr1.length; j++) {
-                            _html += '<li onclick="myHref(&quot;'+arr1[j].url+'&quot;)"><a>';
-                            _html += arr1[j].name;
-                            _html += '</a></li>';
+                        if (arr1 !== null && typeof(arr1)!== 'undefined') {
+                            _html += '<ul class="nav child_menu">';
+                            for (var j = 0; j < arr1.length; j++) {
+                                _html += '<li onclick="myHref(&quot;' + arr1[j].url + '&quot;)"><a>';
+                                _html += arr1[j].name;
+                                _html += '</a></li>';
+                            }
+                            _html += '</ul>';
                         }
-                        _html += '</ul>';
                         _html += '</ul>';
                         $("#menu").append(_html);
                     }
@@ -75,16 +77,18 @@
         /**
          * ifream自适应高度
          */
-        function reinitIframe(){
+        function reinitIframe() {
             var iframe = document.getElementById("page");
-            try{
+            try {
                 var bHeight = iframe.contentWindow.document.body.scrollHeight;
                 var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
                 var height = Math.max(bHeight, dHeight);
                 iframe.height = height;
                 console.log(height);
-            }catch (ex){}
+            } catch (ex) {
+            }
         }
+
         //window.setInterval("reinitIframe()", 200);
 
     </script>
@@ -252,7 +256,8 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
                                 <img src="images/img.jpg" alt="">John Doe
                                 <span class=" fa fa-angle-down"></span>
                             </a>
@@ -270,7 +275,8 @@
                         </li>
 
                         <li role="presentation" class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
+                               aria-expanded="false">
                                 <i class="fa fa-envelope-o"></i>
                                 <span class="badge bg-green">6</span>
                             </a>
@@ -340,7 +346,8 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <iframe id="page" style="margin-bottom: -11px;margin-top: -11px; "frameborder="0" scrolling="no" onload="this.height=1065" width="100%" role="main" src="page.html"></iframe>
+        <iframe id="page" style="margin-bottom: -11px;margin-top: -11px; " frameborder="0" scrolling="no"
+                onload="this.height=1065" width="100%" role="main" src="page.html"></iframe>
         <!-- /page content -->
 
         <!-- footer content -->

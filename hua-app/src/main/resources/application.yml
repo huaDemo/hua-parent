@@ -22,7 +22,7 @@ mybatis:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://localhost:3306/hua?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
@@ -44,6 +44,6 @@ spring:
         number_format: '0.##'   #数字格式化，无小数点
 
 cms:
-  dbname: demo
+  dbname: hua
   dbtype: mysql
 

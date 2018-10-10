@@ -2,8 +2,8 @@ package ${Model.moduleName}.${Model.packageName};
 
 import java.util.Date;
 import java.util.List;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+<#--import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;-->
 
 /**
 * ${Model.remark!}
@@ -15,14 +15,14 @@ public class ${Model.className ?cap_first} {
 
     <#--成员变量-->
     <#list Model.columnList as item>
-    @ApiModelProperty(value = "${item.remark}"
+    <#--@ApiModelProperty(value = "${item.remark}"
         <#if item.columnLength!="">
         ,allowableValues = "range[0,${item.columnLength}]"
         </#if>
         <#if item.isNull=="N">
         , required = true
         </#if>
-    )
+    )-->
     private ${item.columnType} ${item.formateColumnName};//${item.remark!item.columnName}
     </#list>
 
