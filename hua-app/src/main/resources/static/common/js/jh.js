@@ -30,7 +30,8 @@ document.write('<script src="../gentelella/vendors/datatables.net-scroller/js/da
 document.write('<script src="../gentelella/vendors/jszip/dist/jszip.min.js"></script>');
 document.write('<script src="../gentelella/vendors/pdfmake/build/pdfmake.min.js"></script>');
 document.write('<script src="../gentelella/vendors/pdfmake/build/vfs_fonts.js"></script>');
-
+<!-- jh-window -->
+document.write('<script src="../common/js/jh-window.js"></script>');
 window.jh = {};
 //jh初始化
 (function () {
@@ -126,7 +127,7 @@ window.jh = {};
      * 加载表格
      * @param data
      */
-    jh.loadTable = function (data) {
+    jh.loadTable = function (data, content ,id) {
         var num = true;
         for (var key in data) {
             var _html = "";
@@ -140,8 +141,15 @@ window.jh = {};
             _html += '<td class="a-center ">';
             _html += '<input type="checkbox" class="flat" name="table_records">';
             _html += '</td>';
+            var flag = true;
             for (var j in data[key]) {
-                _html += '<td class=" ">' + data[key][j] + '</td>';
+                if (flag) {
+                    var id = data[key][id];
+                    _html += '<td class=" "><a onclick="jhWindow.window(&quot;' + content + '?' + id + '&quot;)">' + data[key][j] + '</a></td>';
+                    flag = false;
+                } else {
+                    _html += '<td class=" ">' + data[key][j] + '</td>';
+                }
             }
             _html += '</tr>';
             $("#tableBody").append(_html);
@@ -177,16 +185,62 @@ window.jh = {};
      * @param url
      * @param data
      */
-    jh.submitTable = function (url, data) {
+    jh.submitTable = function (url, data, content,id) {
         jh.ajax(url, data, function (data) {
             if (data != null && data.code === 0) {
                 jh.loadPage(data.data);//加载分页
-                jh.loadTable(data.data.data);//加载表格
+                jh.loadTable(data.data.data, content,id);//加载表格
             } else {
                 alert(data.message);
             }
         });
     };
+
+    /**
+     * 获取url?号后面的参数
+     * @returns {Object}
+     */
+    jh.getUrlParams = function () {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    };
+
+    /**
+     * 给表单赋值
+     * @param jsonValue
+     * @param id
+     */
+    jh.setForm = function (jsonValue, id) {
+        var obj = $("#" + id + "");
+        $.each(jsonValue, function (name, ival) {
+            var $oinput = obj.find("input[name=" + name + "]");
+            if ($oinput.attr("type") == "radio" || $oinput.attr("type") == "checkbox") {
+                $oinput.each(function () {
+                    if (Object.prototype.toString.apply(ival) == '[object Array]') {//是复选框，并且是数组
+                        for (var i = 0; i < ival.length; i++) {
+                            if ($("#" + id + "").val() == ival[i])
+                                $("#" + id + "").attr("checked", "checked");
+                        }
+                    } else {
+                        if ($("#" + id + "").val() == ival)
+                            $("#" + id + "").attr("checked", "checked");
+                    }
+                });
+            } else if ($oinput.attr("type") == "textarea") {//多行文本框
+                obj.find("[name=" + name + "]").html(ival);
+            } else {
+                obj.find("[name=" + name + "]").val(ival);
+            }
+        });
+    }
 
 })();
 //jh初始化结束
