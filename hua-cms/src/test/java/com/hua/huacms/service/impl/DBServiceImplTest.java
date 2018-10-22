@@ -21,9 +21,9 @@ import static org.junit.Assert.*;
  * @author: hua
  * @create: 2018-06-15 15:11
  */
-@RunWith(SpringRunner.class)
+/*@RunWith(SpringRunner.class)
 @SpringBootTest
-@MapperScan("com.hua.dal.dao")//动态扫描dao层将其作为bean
+@MapperScan("com.hua.dal.dao")//动态扫描dao层将其作为bean*/
 public class DBServiceImplTest {
 
     @Autowired
@@ -51,6 +51,23 @@ public class DBServiceImplTest {
         model.setModuleName("com.bocins.springcloud");
         model.setPackageName("vo");
         cmsService.createModel(model, "mysql", "", "");
+    }
+
+    @Test
+    public void test() throws Exception {
+        String[] arr = {"1", "2", "3", "4", "5", "6"};
+        People people = null;
+        for (int i = 0; i < arr.length; i++) {
+            test1(people);
+            /*people = new People();
+            people.setName("lisi");*/
+            System.out.println(people);
+        }
+    }
+
+    public void test1(People people) throws Exception{
+        people = new People();
+        people.setName("lisi");
     }
 
 }

@@ -53,10 +53,10 @@
                     <!--<button type="button" class="btn btn-primary" onclick="joForm.save()">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;新增
                     </button>-->
-                    <button type="button" class="btn btn-info" onclick="joForm.update()">
+                    <button type="button" class="btn btn-info" onclick="jh.formUpdate($('#pageForm'),'/huaRole/update')">
                         <i class="fa fa-pencil-square" aria-hidden="true"></i>&nbsp;修改
                     </button>
-                    <button type="button" class="btn btn-danger" onclick="joForm.del()">
+                    <button type="button" class="btn btn-danger" onclick="jh.formDelete($('#pageForm'),'/huaRole/delete')">
                         <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;删除
                     </button>
                 </div>
@@ -70,7 +70,7 @@
                         <tr>
                             <td width="15%" class="active must" align="">主键</td>
                             <td class="tnt">
-                                <input type="text" name="id" class="form-control input-sm "/>
+                                <input type="text" id="id" name="id" class="form-control input-sm "/>
                             </td>
                             <td width="15%" class="active must" align="">
                                 名称

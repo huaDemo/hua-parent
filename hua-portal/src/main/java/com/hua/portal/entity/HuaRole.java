@@ -23,7 +23,7 @@ public class HuaRole {
     private String name;//权限名称
     @ApiModelProperty(value = "创建时间"
     )
-    private Date createTime;//创建时间
+    private String createTime;//创建时间
     @ApiModelProperty(value = "权限描述"
         ,allowableValues = "range[0,20]"
     )
@@ -46,11 +46,11 @@ public class HuaRole {
         this.name = name;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 

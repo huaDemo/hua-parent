@@ -19,7 +19,7 @@
         <include refid="searchCol"></include>
         FROM hua_role P
         <include refid="joinSql"></include>
-        WHERE id = #{HuaRole}
+        WHERE id = #{id}
     </select>
     <!--查询多条-->
     <select id="getList" parameterType="HuaRole" resultType="HuaRole">
@@ -93,7 +93,7 @@
                 P.description = #{description},
             </if>
         </set>
-        WHERE id = #{hua_role}
+        WHERE id = #{id}
     </update>
     <!--删除-->
     <delete id="delete" parameterType="HuaRole">

@@ -22,7 +22,7 @@
         <include refid="searchCol"></include>
         FROM ${Model.tableName} P
         <include refid="joinSql"></include>
-        WHERE ${Model.tableId!id} = ${"#"}{${Model.className!id}}
+        WHERE ${Model.tableId!id} = ${"#"}{${Model.classId!id}}
     </select>
     <!--查询多条-->
     <select id="getList" parameterType="${Model.className ?cap_first}" resultType="${Model.className ?cap_first}">

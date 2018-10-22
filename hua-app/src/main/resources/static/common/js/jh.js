@@ -127,7 +127,7 @@ window.jh = {};
      * 加载表格
      * @param data
      */
-    jh.loadTable = function (data, content ,id) {
+    jh.loadTable = function (data, content, id) {
         var num = true;
         for (var key in data) {
             var _html = "";
@@ -144,7 +144,7 @@ window.jh = {};
             var flag = true;
             for (var j in data[key]) {
                 if (flag) {
-                    var id = data[key][id];
+                    var id = data[key]["id"];
                     _html += '<td class=" "><a onclick="jhWindow.window(&quot;' + content + '?' + id + '&quot;)">' + data[key][j] + '</a></td>';
                     flag = false;
                 } else {
@@ -185,11 +185,11 @@ window.jh = {};
      * @param url
      * @param data
      */
-    jh.submitTable = function (url, data, content,id) {
+    jh.submitTable = function (url, data, content, id) {
         jh.ajax(url, data, function (data) {
             if (data != null && data.code === 0) {
                 jh.loadPage(data.data);//加载分页
-                jh.loadTable(data.data.data, content,id);//加载表格
+                jh.loadTable(data.data.data, content, id);//加载表格
             } else {
                 alert(data.message);
             }
@@ -238,6 +238,42 @@ window.jh = {};
                 obj.find("[name=" + name + "]").html(ival);
             } else {
                 obj.find("[name=" + name + "]").val(ival);
+            }
+        });
+    };
+
+    /**
+     * 表单修改
+     * @param form
+     * @param url
+     */
+    jh.formUpdate = function (form, url) {
+        jh.formAjax(form, url, function (data) {
+            if (data.code === 0) {
+                alert("修改成功！");
+                window.location.reload();
+            } else {
+                alert(data.message);
+            }
+        });
+    }
+
+    /**
+     * 表单删除
+     * @param form
+     * @param url
+     */
+    jh.formDelete = function (form, url) {
+        var data = {};
+        var $oinput = form.find("input[name='id']");
+        console.info($oinput);
+        data.id = $oinput.val();
+        jh.ajax(url, data, function (data) {
+            if (data.code === 0) {
+                alert("删除成功！");
+                window.parent.location.reload();
+            } else {
+                alert(data.message);
             }
         });
     }
