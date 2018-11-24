@@ -1,13 +1,58 @@
-package com.hua.huacms.util;
+package com.hua.huacommon.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
- * @author: hua
- * @create: 2018-06-17 11:59
+ * 公共方法类
+ *
+ * @auther: hua
+ * @date: 2018/11/24 19:40
  */
 public class PubTools {
+
+    /**
+     * 统计某个字符出现的次数
+     *
+     * @param str  所在字符串
+     * @param str1 统计字符
+     * @return
+     * @throws Exception
+     */
+    public static int countStr(String str, String str1) throws Exception {
+        int fromIndex = 0;
+        int count = 0;
+        str = str.toUpperCase();
+        while (true) {
+            int index = str.indexOf(str1, fromIndex);
+            if (-1 != index) {
+                fromIndex = index + 1;
+                count++;
+            } else {
+                break;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * unicode转中文
+     *
+     * @param str
+     * @return
+     */
+    public static String unicodeToString(String str) {
+        Pattern pattern = Pattern.compile("(\\\\u(\\p{XDigit}{4}))");
+        Matcher matcher = pattern.matcher(str);
+        char ch;
+        while (matcher.find()) {
+            ch = (char) Integer.parseInt(matcher.group(2), 16);
+            str = str.replace(matcher.group(1), ch + "");
+        }
+        return str;
+    }
 
     /**
      * 驼峰格式转换
@@ -55,4 +100,5 @@ public class PubTools {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.format(date);
     }
+
 }

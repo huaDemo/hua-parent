@@ -14,6 +14,7 @@
         <module>hua-app</module>
         <module>hua-common</module>
         <module>hua-portal</module>
+        <module>hua-reptile</module>
     </modules>
 
 
