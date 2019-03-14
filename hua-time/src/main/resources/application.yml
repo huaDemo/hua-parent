@@ -1,0 +1,30 @@
+server:
+  port: 8083 #服务端口
+
+#默认使用配置
+spring:
+  profiles:
+    active: dev
+
+#公共配置与profiles选择无关 mapperLocations指的路径是src/main/resources
+mybatis:
+  #MAPPER中简化包名
+  typeAliasesPackage: com/hua
+  mapperLocations: classpath*:mapper/*.xml
+  #开启驼峰转换
+  configuration:
+    mapUnderscoreToCamelCase: true
+
+---
+
+management:
+  security:
+    enabled: false
+sleuth:
+  sampler:
+    # 采样率，默认0.1即10%,如需测试时每次都看到trace则修改为1.0，但对性能有影响，注意上线时修改为合理值
+    percentage: 1.0
+  # stream format  to send trace msg: enable sleuth.stream to use stream
+  # default is true,refer to SleuthStreamAutoConfiguration.java
+  #stream:
+  #  enabled: true
