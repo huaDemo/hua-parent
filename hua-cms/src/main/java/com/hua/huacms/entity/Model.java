@@ -1,6 +1,7 @@
 package com.hua.huacms.entity;
 
-import com.hua.huacms.util.PubTools;
+
+import com.hua.huacommon.Util.PubTools;
 
 import java.util.Date;
 import java.util.List;
@@ -87,7 +88,7 @@ public class Model {
             if (this.tableId != null && this.tableId.contains("_")) {
                 this.classId = PubTools.strformatHump(this.tableId);
             } else {
-                this.classId = this.tableName.toLowerCase();
+                this.classId = this.tableId.toLowerCase();
             }
         }
     }

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hua.huashiro.mapper.huaRole">
+    <!--查询字段信息-->
+    <sql id="searchCol">
+            P.id AS "id",
+            P.name AS "name",
+            P.create_time AS "createTime",
+            P.description AS "description"
+    </sql>
+    <!--关联查询相关sql-->
+    <sql id="joinSql">
+    </sql>
+    <!--查询单条-->
+    <select id="getOne" parameterType="String" resultType="HuaRole">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM hua_role P
+        <include refid="joinSql"></include>
+        WHERE id = #{id}
+    </select>
+    <!--查询多条-->
+    <select id="getList" parameterType="HuaRole" resultType="HuaRole">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM hua_role P
+        <include refid="joinSql"></include>
+        <where>
+            <if test="id != null and id != ''">
+                AND P.id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND P.name = #{name}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND P.create_time = #{createTime}
+            </if>
+            <if test="description != null and description != ''">
+                AND P.description = #{description}
+            </if>
+        </where>
+    </select>
+    <!--统计查询-->
+    <select id="countList" parameterType="HuaRole" resultType="Integer">
+        SELECT count(*)
+        FROM hua_role P
+        <include refid="joinSql"></include>
+        <where>
+            <if test="id != null and id != ''">
+                AND P.id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND P.name = #{name}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND P.create_time = #{createTime}
+            </if>
+            <if test="description != null and description != ''">
+                AND P.description = #{description}
+            </if>
+        </where>
+    </select>
+    <!--新增-->
+    <insert id="insert" parameterType="HuaRole">
+        INSERT INTO hua_role
+        (
+        id,
+        name,
+        create_time,
+        description
+        )
+        VALUES
+        (
+        #{id},
+        #{name},
+        #{createTime},
+        #{description}
+        )
+    </insert>
+    <!--修改-->
+    <update id="update" parameterType="HuaRole">
+        update hua_role P
+        <set>
+            <if test="name != null and name != ''">
+                P.name = #{name},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                P.create_time = #{createTime},
+            </if>
+            <if test="description != null and description != ''">
+                P.description = #{description},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <!--删除-->
+    <delete id="delete" parameterType="HuaRole">
+        DELETE FROM
+        hua_role
+        <where>
+            <if test="id != null and id != ''">
+                AND id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND name = #{name}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND create_time = #{createTime}
+            </if>
+            <if test="description != null and description != ''">
+                AND description = #{description}
+            </if>
+        </where>
+    </delete>
+</mapper>

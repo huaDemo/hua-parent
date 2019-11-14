@@ -1,6 +1,7 @@
 package com.hua.huacms.entity;
 
-import com.hua.huacms.util.PubTools;
+
+import com.hua.huacommon.Util.PubTools;
 
 /**
  * 数据表字段实体类

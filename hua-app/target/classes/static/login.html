@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hua开发平台! </title>
+
+    <!-- Bootstrap -->
+    <link href="../gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="../gentelella/vendors/animate.css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../gentelella/build/css/custom.min.css" rel="stylesheet">
+    <script>
+
+        function login() {
+            jh.formAjax($('#form1'), "/huaUser/login", function (data) {
+                if (data.code === 0) {
+                    window.location.href = jh.getRootPath() + "/index.html";
+                }else {
+                    alert(data.message);
+                }
+            });
+        }
+
+    </script>
+</head>
+
+<body class="login">
+<div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
+
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <form id="form1">
+                    <h1>Login Form</h1>
+                    <div>
+                        <input id="id" name="id" type="text" class="form-control" placeholder="Username" required=""/>
+                    </div>
+                    <div>
+                        <input id="password" name="password" type="password" class="form-control" placeholder="Password" required=""/>
+                    </div>
+                    <div>
+                        <a class="btn btn-default submit" onclick="login()">Log in</a>
+                        <a class="reset_pass" href="#">Lost your password?</a>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <p class="change_link">New to site?
+                            <a href="#signup" class="to_register"> Create Account </a>
+                        </p>
+
+                        <div class="clearfix"></div>
+                        <br/>
+
+                        <div>
+                            <h1><i class="fa fa-paw"></i> Hua快速开发平台！</h1>
+                            <p>©2018 致力于提升中小企业开发速度的快速开发平台！</p>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- jh -->
+<script src="../common/js/jh.js"></script>
+<script>
+    $(document).ready(function () {
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hua开发平台! </title>
+
+    <!-- Bootstrap -->
+    <link href="../gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../gentelella/build/css/custom.min.css" rel="stylesheet">
+    <script>
+
+
+        //加载表
+        /*function loadChart() {
+            $.ajax({
+                    url: "http://localhost:8083/reptile/getzhihu",
+                    contentType: 'application/x-www-form-urlencoded',//'application/json',数据提交类型
+                    type: "GET",
+                    dataType: 'json',
+                    async: false, //异步加载(默认是false)
+                    success: function (data) {
+                        var data = data.data;
+                        var xArr = new Array();
+                        var yArr = new Array();
+                        //生成表格
+                        for (var key in data) {
+                            xArr.push(key);
+                            yArr.push(data[key]);
+                        }
+                        // 基于准备好的dom，初始化echarts实例
+                        var myChart = echarts.init(document.getElementById('main'));
+
+                        // 指定图表的配置项和数据
+                        var option = {
+                            title: {
+                                text: '编程语言统计',
+                                subtext: '知乎爬虫报表'
+                            },
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data: ['频率']
+                            },
+                            toolbox: {
+                                show: true,
+                                feature: {
+                                    dataView: {show: true, readOnly: false},
+                                    magicType: {show: true, type: ['line', 'bar']},
+                                    restore: {show: true},
+                                    saveAsImage: {show: true}
+                                }
+                            },
+                            calculable: true,
+                            xAxis: [
+                                {
+                                    type: 'category',
+                                    data: xArr
+                                }
+                            ],
+                            yAxis: [
+                                {
+                                    type: 'value'
+                                }
+                            ],
+                            series: [
+                                {
+                                    name: '频率',
+                                    type: 'bar',
+                                    data: yArr,
+                                    label: {
+                                        normal: {
+                                            show: true,
+                                            position: 'inside'
+                                        }
+                                    },
+                                    markPoint: {
+                                        data: [
+                                            {type: 'max', name: '最大值'},
+                                            {type: 'min', name: '最小值'}
+                                        ]
+                                    },
+                                    markLine: {
+                                        data: [
+                                            {type: 'average', name: '平均值'}
+                                        ]
+                                    }
+                                }
+                            ]
+                        };
+
+
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    },
+                    error: function (data) {
+                        alert("出错了！！:" + data.msg);
+                    }
+                }
+            );
+        }*/
+
+        function sendButton() {
+            var cat = $("#id").val();
+            console.info(cat);
+            $.ajax({
+                    url: "https://v1.hitokoto.cn/?c=" + cat + "&encode=json&charset=utf-8",
+                    //contentType: 'application/x-www-form-urlencoded',//'application/json',数据提交类型
+                    type: "GET",
+                    dataType: 'json',
+                    async: false, //异步加载(默认是false)
+                    success: function (data) {
+                        console.info(data);
+                        jhWindow.window("https://hitokoto.cn?id=" + data.id);
+                    },
+                    error: function (data) {
+                        alert("出错了！！:" + data.msg);
+                    }
+                }
+            );
+        }
+
+
+    </script>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>爬虫实例
+                                <!--<small>sub title</small>-->
+                            </h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form id="form1" class="form-horizontal form-label-left" novalidate>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cat">类型 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <!--<input id="dbType" name="dbType" class="form-control col-md-7 col-xs-12" placeholder="both name(s) e.g Jon Doe" required="required">-->
+                                        <select id="cat" name="cat" class="form-control" required>
+                                            <option value="a">动画</option>
+                                            <option value="b">漫画</option>
+                                            <option value="c">游戏</option>
+                                            <option value="d">小说</option>
+                                            <option value="e">原创</option>
+                                            <option value="f">来自网络</option>
+                                            <option value="g">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <button type="button" class="btn btn-success" onclick="sendButton()">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /page content -->
+
+        </div>
+    </div>
+    <!-- jh -->
+    <script src="../common/js/jh.js"></script>
+    <script src="../echarts/echarts.js"></script>
+    <script>
+        $(document).ready(function () {
+            //loadChart();//加载报表
+        });
+    </script>
+</body>
+</html>

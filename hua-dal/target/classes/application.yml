@@ -1,0 +1,28 @@
+#默认使用配置
+spring:
+  profiles:
+    active: dev
+
+#公共配置与profiles选择无关 mapperLocations指的路径是src/main/resources
+mybatis:
+  #MAPPER中简化包名
+  typeAliasesPackage: com/hua/dal
+  mapperLocations: classpath:mapper/*.xml
+  #开启驼峰转换
+  configuration:
+    mapUnderscoreToCamelCase: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+---
+
+#开发配置
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+

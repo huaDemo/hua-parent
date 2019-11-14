@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Hua开发平台! </title>
+
+    <!-- Bootstrap -->
+    <link href="../gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../gentelella/vendors/nprogress/nprogress.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="../gentelella/build/css/custom.min.css" rel="stylesheet">
+    <script>
+
+
+
+        function loadMap(){
+            var map = new AMap.Map("container", {
+                resizeEnable: true,
+                center: [116.397428, 39.90923],
+                zoom: 13
+            });
+            var transOptions = {
+                map: map,
+                city: '北京市',
+                panel: 'panel',
+                policy: AMap.TransferPolicy.LEAST_TIME //乘车策略
+            };
+            //构造公交换乘类
+            var transfer = new AMap.Transfer(transOptions);
+            //根据起、终点名称查询公交换乘路线
+            transfer.search([
+                {keyword: '地震局',city:'北京'},
+                //第一个元素city缺省时取transOptions的city属性
+                {keyword: '望京西园4区',city:'北京'}
+                //第二个元素city缺省时取transOptions的cityd属性
+            ], function(status, result) {
+                // result即是对应的公交路线数据信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_TransferResult
+                if (status === 'complete') {
+                    log.success('绘制公交路线完成')
+                } else {
+                    log.error('公交路线数据查询失败' + result)
+                }
+            });
+        }
+
+
+    </script>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>爬虫实例
+                                <!--<small>sub title</small>-->
+                            </h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Settings 1</a>
+                                        </li>
+                                        <li><a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <!-- DIV需要指定宽高，才可以显示底图 -->
+                            <div id="container" style='width:1500px; height:1200px;'></div>
+                            <div id="panel" style='width:263px; height:797px;'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+    </div>
+</div>
+<!-- jh -->
+<script src="../common/js/jh.js"></script>
+<!-- 引用线上代码 -->
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.12&key=d57c07244d2d8bdec2c36962587ed597&plugin=AMap.Transfer"></script>
+<script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+<script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+<link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+<style type="text/css">
+    #panel {
+        position: fixed;
+        background-color: white;
+        max-height: 90%;
+        overflow-y: auto;
+        top: 10px;
+        right: 10px;
+        width: 280px;
+    }
+    #panel .amap-call {
+        background-color: #009cf9;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+    #panel .amap-lib-transfer {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        overflow: hidden;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        //loadChart();//加载报表
+        loadMap();//加载地图
+    });
+</script>
+</body>
+</html>

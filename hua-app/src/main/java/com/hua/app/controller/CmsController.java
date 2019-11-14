@@ -1,6 +1,7 @@
 package com.hua.app.controller;
 
 import com.hua.app.entity.CmsReqDO;
+import com.hua.app.websocket.MyWebSocket;
 import com.hua.huacms.entity.Model;
 import com.hua.huacms.service.CmsService;
 import com.hua.huacms.service.DBService;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * 智能代码生成控制层
@@ -59,6 +62,17 @@ public class CmsController {
             e.printStackTrace();
             baseResult.setCode(999);
             baseResult.setMessage(e.getMessage());
+        }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/socket/push", method = {RequestMethod.GET, RequestMethod.POST})
+    public Object test(String cid, String message, HttpServletRequest request) {
+        BaseResult baseResult = new BaseResult();
+        try {
+            MyWebSocket.sendInfo(message,cid);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return baseResult;
     }

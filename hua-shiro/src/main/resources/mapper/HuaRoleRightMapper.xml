@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hua.huashiro.mapper.huaRoleRight">
+    <!--查询字段信息-->
+    <sql id="searchCol">
+            P.id AS "id",
+            P.role_id AS "roleId",
+            P.right_id AS "rightId"
+    </sql>
+    <!--关联查询相关sql-->
+    <sql id="joinSql">
+    </sql>
+    <!--查询单条-->
+    <select id="getOne" parameterType="String" resultType="HuaRoleRight">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM hua_role_right P
+        <include refid="joinSql"></include>
+        WHERE id = #{HuaRoleRight}
+    </select>
+    <!--查询多条-->
+    <select id="getList" parameterType="HuaRoleRight" resultType="HuaRoleRight">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM hua_role_right P
+        <include refid="joinSql"></include>
+        <where>
+            <if test="id != null and id != ''">
+                AND P.id = #{id}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                AND P.role_id = #{roleId}
+            </if>
+            <if test="rightId != null and rightId != ''">
+                AND P.right_id = #{rightId}
+            </if>
+        </where>
+    </select>
+    <!--统计查询-->
+    <select id="countList" parameterType="HuaRoleRight" resultType="Integer">
+        SELECT count(*)
+        FROM hua_role_right P
+        <include refid="joinSql"></include>
+        <where>
+            <if test="id != null and id != ''">
+                AND P.id = #{id}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                AND P.role_id = #{roleId}
+            </if>
+            <if test="rightId != null and rightId != ''">
+                AND P.right_id = #{rightId}
+            </if>
+        </where>
+    </select>
+    <!--新增-->
+    <insert id="insert" parameterType="HuaRoleRight">
+        INSERT INTO hua_role_right
+        (
+        id,
+        role_id,
+        right_id
+        )
+        VALUES
+        (
+        #{id},
+        #{roleId},
+        #{rightId}
+        )
+    </insert>
+    <!--修改-->
+    <update id="update" parameterType="HuaRoleRight">
+        update hua_role_right P
+        <set>
+            <if test="roleId != null and roleId != ''">
+                P.role_id = #{roleId},
+            </if>
+            <if test="rightId != null and rightId != ''">
+                P.right_id = #{rightId},
+            </if>
+        </set>
+        WHERE id = #{hua_role_right}
+    </update>
+    <!--删除-->
+    <delete id="delete" parameterType="HuaRoleRight">
+        DELETE FROM
+        hua_role_right
+        <where>
+            <if test="id != null and id != ''">
+                AND id = #{id}
+            </if>
+            <if test="roleId != null and roleId != ''">
+                AND role_id = #{roleId}
+            </if>
+            <if test="rightId != null and rightId != ''">
+                AND right_id = #{rightId}
+            </if>
+        </where>
+    </delete>
+</mapper>

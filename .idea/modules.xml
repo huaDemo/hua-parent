@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/hua-app/hua-app.iml" filepath="$PROJECT_DIR$/hua-app/hua-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hua-cms/hua-cms.iml" filepath="$PROJECT_DIR$/hua-cms/hua-cms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hua-common/hua-common.iml" filepath="$PROJECT_DIR$/hua-common/hua-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hua-dal/hua-dal.iml" filepath="$PROJECT_DIR$/hua-dal/hua-dal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hua-netty/hua-netty.iml" filepath="$PROJECT_DIR$/hua-netty/hua-netty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hua-parent.iml" filepath="$PROJECT_DIR$/hua-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hua-portal/hua-portal.iml" filepath="$PROJECT_DIR$/hua-portal/hua-portal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hua-reptile/hua-reptile.iml" filepath="$PROJECT_DIR$/hua-reptile/hua-reptile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hua-shiro/hua-shiro.iml" filepath="$PROJECT_DIR$/hua-shiro/hua-shiro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hua-time/hua-time.iml" filepath="$PROJECT_DIR$/hua-time/hua-time.iml" />
+    </modules>
+  </component>
+</project>

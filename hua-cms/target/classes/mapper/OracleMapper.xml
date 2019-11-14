@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hua.huacms.mapper.oracle">
+
+    <!--查询字段信息-->
+    <sql id="searchCol">
+        P.COLUMN_NAME AS "columnName"
+        ,P.TABLE_NAME AS "tableId"
+        ,P.DATA_TYPE AS "columnType"
+        ,P.DATA_LENGTH AS "columnLength"
+        ,P.NULLABLE AS "isNull"
+        ,x1.COMMENTS AS "remark"
+    </sql>
+
+    <!--关联查询字段-->
+    <sql id="joinSql">
+        left join user_col_comments x1 on P.COLUMN_NAME = x1.column_name and x1.table_name = p.TABLE_NAME
+    </sql>
+
+    <!-- 查询-->
+    <select id="getColumnList" parameterType="Column" resultType="Column">
+        select
+        <include refid="searchCol"></include>
+        from user_tab_columns P
+        <include refid="joinSql"></include>
+        <where>
+            <if test="tableId != null and tableId != ''">
+                and P.TABLE_NAME = #{tableId}
+            </if>
+        </where>
+    </select>
+
+    <!--查询主键-->
+    <select id="getTableId" parameterType="String" resultType="String">
+        select column_name
+        from user_cons_columns
+        where table_name = #{tableName}
+        and constraint_name in
+        (select constraint_name
+          from user_constraints
+          where table_name = #{tableName}
+            and constraint_type = 'P')
+    </select>
+
+</mapper>

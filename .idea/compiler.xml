@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="hua-app" />
+        <module name="hua-cms" />
+        <module name="hua-common" />
+        <module name="hua-dal" />
+        <module name="hua-netty" />
+        <module name="hua-parent" />
+        <module name="hua-portal" />
+        <module name="hua-reptile" />
+        <module name="hua-shiro" />
+        <module name="hua-time" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="hua-app" target="1.8" />
+      <module name="hua-cms" target="1.8" />
+      <module name="hua-common" target="1.8" />
+      <module name="hua-dal" target="1.8" />
+      <module name="hua-netty" target="1.8" />
+      <module name="hua-parent" target="1.5" />
+      <module name="hua-portal" target="1.8" />
+      <module name="hua-reptile" target="1.8" />
+      <module name="hua-shiro" target="1.8" />
+      <module name="hua-time" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

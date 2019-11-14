@@ -65,6 +65,10 @@ public class CmsServiceImpl implements CmsService {
                     this.createFtl(model, url + "/hua/service/impl", "impl.ftl", "ServiceImpl.java");
                     //创建控制层文件
                     this.createFtl(model, url + "/hua/controller", "controller.ftl", "Controller.java");
+                    //创建DTO文件
+                    this.createFtl(model, url + "/hua/dto", "Dto.ftl", "DTO.java");
+                    //创建DTO文件
+                    this.createFtl(model, url + "/hua/dto", "cModel.ftl", "cModel.java");
                 } else {
                     if ("model".equals(ftl)) {
                         //创建实体模板文件

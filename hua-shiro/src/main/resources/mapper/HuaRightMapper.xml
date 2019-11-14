@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hua.huashiro.mapper.huaRight">
+    <!--查询字段信息-->
+    <sql id="searchCol">
+            P.id AS "id",
+            P.name AS "name",
+            P.description AS "description",
+            P.create_time AS "createTime",
+            P.parent_right AS "parentRight",
+            P.picture AS "picture",
+            P.url AS "url"
+    </sql>
+    <!--关联查询相关sql-->
+    <sql id="joinSql">
+    </sql>
+    <!--查询单条-->
+    <select id="getOne" parameterType="String" resultType="HuaRight">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM hua_right P
+        <include refid="joinSql"></include>
+        WHERE id = #{HuaRight}
+    </select>
+    <!--查询多条-->
+    <select id="getList" parameterType="HuaRight" resultType="HuaRight">
+        SELECT
+        <include refid="searchCol"></include>
+        FROM hua_right P
+        <include refid="joinSql"></include>
+        <where>
+            <if test="id != null and id != ''">
+                AND P.id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND P.name = #{name}
+            </if>
+            <if test="description != null and description != ''">
+                AND P.description = #{description}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND P.create_time = #{createTime}
+            </if>
+            <if test="parentRight != null and parentRight != ''">
+                AND P.parent_right = #{parentRight}
+            </if>
+            <if test="picture != null and picture != ''">
+                AND P.picture = #{picture}
+            </if>
+            <if test="url != null and url != ''">
+                AND P.url = #{url}
+            </if>
+        </where>
+    </select>
+    <!--统计查询-->
+    <select id="countList" parameterType="HuaRight" resultType="Integer">
+        SELECT count(*)
+        FROM hua_right P
+        <include refid="joinSql"></include>
+        <where>
+            <if test="id != null and id != ''">
+                AND P.id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND P.name = #{name}
+            </if>
+            <if test="description != null and description != ''">
+                AND P.description = #{description}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND P.create_time = #{createTime}
+            </if>
+            <if test="parentRight != null and parentRight != ''">
+                AND P.parent_right = #{parentRight}
+            </if>
+            <if test="picture != null and picture != ''">
+                AND P.picture = #{picture}
+            </if>
+            <if test="url != null and url != ''">
+                AND P.url = #{url}
+            </if>
+        </where>
+    </select>
+    <!--新增-->
+    <insert id="insert" parameterType="HuaRight">
+        INSERT INTO hua_right
+        (
+        id,
+        name,
+        description,
+        create_time,
+        parent_right,
+        picture,
+        url
+        )
+        VALUES
+        (
+        #{id},
+        #{name},
+        #{description},
+        #{createTime},
+        #{parentRight},
+        #{picture},
+        #{url}
+        )
+    </insert>
+    <!--修改-->
+    <update id="update" parameterType="HuaRight">
+        update hua_right P
+        <set>
+            <if test="name != null and name != ''">
+                P.name = #{name},
+            </if>
+            <if test="description != null and description != ''">
+                P.description = #{description},
+            </if>
+            <if test="createTime != null and createTime != ''">
+                P.create_time = #{createTime},
+            </if>
+            <if test="parentRight != null and parentRight != ''">
+                P.parent_right = #{parentRight},
+            </if>
+            <if test="picture != null and picture != ''">
+                P.picture = #{picture},
+            </if>
+            <if test="url != null and url != ''">
+                P.url = #{url},
+            </if>
+        </set>
+        WHERE id = #{hua_right}
+    </update>
+    <!--删除-->
+    <delete id="delete" parameterType="HuaRight">
+        DELETE FROM
+        hua_right
+        <where>
+            <if test="id != null and id != ''">
+                AND id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND name = #{name}
+            </if>
+            <if test="description != null and description != ''">
+                AND description = #{description}
+            </if>
+            <if test="createTime != null and createTime != ''">
+                AND create_time = #{createTime}
+            </if>
+            <if test="parentRight != null and parentRight != ''">
+                AND parent_right = #{parentRight}
+            </if>
+            <if test="picture != null and picture != ''">
+                AND picture = #{picture}
+            </if>
+            <if test="url != null and url != ''">
+                AND url = #{url}
+            </if>
+        </where>
+    </delete>
+</mapper>

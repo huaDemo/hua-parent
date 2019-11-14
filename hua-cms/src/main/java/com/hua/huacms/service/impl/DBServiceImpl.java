@@ -6,7 +6,6 @@ import com.hua.huacms.constant.DBMapperEnum;
 import com.hua.huacms.entity.Column;
 import com.hua.huacms.entity.Table;
 import com.hua.huacms.service.DBService;
-import com.hua.huacms.util.PubTools;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +61,7 @@ public class DBServiceImpl implements DBService {
                 String str = ((List<String>) baseDao.getList(DBMapperEnum.ORACLE.getUrl() + ".getTableId", tableName)).get(0);
                 return str;
             } else if (DBEnum.MYSQL.getDbType().equals(dbType)) {
-                return (String) baseDao.getObject(DBMapperEnum.MYSQL.getUrl() + ".getTableId", tableName);
+                return ((List<String>) baseDao.getList(DBMapperEnum.MYSQL.getUrl() + ".getTableId", tableName)).get(0);
             }
         }
         return null;
@@ -89,6 +88,8 @@ public class DBServiceImpl implements DBService {
                 } else if ("datetime".equals(column.getColumnType())) {
                     column.setColumnType("Date");
                 } else if ("int".equals(column.getColumnType())) {
+                    column.setColumnType("int");
+                } else if ("bigint".equals(column.getColumnType())) {
                     column.setColumnType("int");
                 }
             }
